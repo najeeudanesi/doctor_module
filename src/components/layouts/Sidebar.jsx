@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiLogoutCircleLine } from "react-icons/ri";
-import EdsgLogo from "../../assets/images/edsg-logo-250.png";
+import EdsgLogo from "../../assets/images/SidebarLogo.png";
 import { AiOutlineHome } from "react-icons/ai";
 // import { logout } from "../../utility/auth";
 
@@ -19,21 +19,21 @@ const Sidebar = ({ history, menuList }) => {
 
       <div className="sidebar-menu">
         <ul className="menu-items">
-          <li>
+          {/* <li>
             <AiOutlineHome className="icon" />
-            {/* <Link onClick={logout} className="has-sub-menu">
+            <Link onClick={logout} className="has-sub-menu">
               <span className="title">Home</span>
-            </Link> */}
-          </li>
+            </Link>
+          </li> */}
           {menuList &&
             menuList.map((item) => (
               <MenuItem props={item} pathname={pathname} key={item.title} />
             ))}
           <li>
             <RiLogoutCircleLine className="icon" />
-            {/* <Link onClick={logout} className="has-sub-menu">
+            <Link className="has-sub-menu">
               <span className="title">Log Out</span>
-            </Link> */}
+            </Link>
           </li>
         </ul>
       </div>
