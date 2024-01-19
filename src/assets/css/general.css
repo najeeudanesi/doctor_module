@@ -428,3 +428,7 @@ button:focus {
 .profile-brief .brief p {
   font-size: 0.8rem;
 }
+
+.text-caption{
+  font-size: 11px;
+}
