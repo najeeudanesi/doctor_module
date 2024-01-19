@@ -8,6 +8,7 @@ import Dashboard from '../components/pages/Dashboard';
 import Patients from '../components/pages/Patients';
 import Facility from '../components/pages/Facility';
 import CustomerManagement from '../components/pages/CustomerManagement';
+import PatientDetails from '../components/pages/PatientDetails';
 
 export default () => (
     <Routes>
@@ -15,5 +16,6 @@ export default () => (
         <Route path="/patients" element={<Patients />} />
         <Route path="/facility" element={<Facility />} />
         <Route path="/customer-management" element={<CustomerManagement />} />
+        <Route path="/patient-details" element={<PatientDetails />} />
     </Routes>
 );

@@ -116,14 +116,14 @@ function Facility() {
         >
           Beds
         </div>
-        |
+
         <div
           className={`tab-item ${selectedTab === "equipments" ? "active" : ""}`}
           onClick={() => setSelectedTab("equipments")}
         >
           Equipments
         </div>
-        |
+
         <div
           className={`tab-item ${selectedTab === "ambulance" ? "active" : ""}`}
           onClick={() => setSelectedTab("ambulance")}

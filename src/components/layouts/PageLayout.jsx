@@ -9,7 +9,7 @@ import { createBrowserHistory } from "history";
 export default function PageLayout() {
   const history = createBrowserHistory();
   return (
-    <div className="container">
+    <div className="">
       <Sidebar history={history} menuList={menuList} />
       <div className="portal">
         <Header navList={["Home", "Notification", "Set Reminder"]} />
