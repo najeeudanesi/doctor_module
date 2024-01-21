@@ -46,7 +46,7 @@ function Patients() {
 
   return (
     <div className="w-100 m-t-80">
-      <h3>Patience Management</h3>
+      <h3>Patients Management</h3>
       <div className="m-t-20">
         <div className="flex">
           {stats.map((stat) => (
@@ -56,17 +56,34 @@ function Patients() {
           ))}
         </div>
       </div>
-      <div className="flex gap-7 m-t-40">
-        <p>Assigned Waiting Patients</p>|
-        <DatePicker
-          selected={selectedDate}
-          onChange={handleDateChange}
-          dateFormat="dd-MM-yyyy"
-          maxDate={new Date()}
-          customInput={<CustomInput />}
-          icon={<RiCalendar2Fill />}
-        />
+      <div className="flex w-100 space-between">
+        <div className="flex gap-7 m-t-40">
+          <p>Assigned Waiting Patients</p>|
+          <DatePicker
+            selected={selectedDate}
+            onChange={handleDateChange}
+            dateFormat="dd-MM-yyyy"
+            maxDate={new Date()}
+            customInput={<CustomInput />}
+            icon={<RiCalendar2Fill />}
+          />
+        </div>
+
+        <div className="flex flex-v-center  w-50 m-t-20">
+          {" "}
+          <input type="text" className="" />
+          <div className="dropdown-input w-25 ">
+            {" "}
+            <select>
+              <option value="Ward A">Ward A</option>
+              <option value="Ward B">Ward B</option>
+              <option value="Ward C">Ward C</option>
+              <option value="Ward D">Ward D</option>
+            </select>
+          </div>
+        </div>
       </div>
+
       <div className="">
         <PatientsTable data={PatientData} />
       </div>

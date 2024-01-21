@@ -132,7 +132,7 @@ function Facility() {
         </div>
       </div>
 
-      <div className="dropdown-input w-25 m-t-20">
+      <div className="dropdown-input w-25 m-t-20 ">
         <select>
           <option value="Ward A">Ward A</option>
           <option value="Ward B">Ward B</option>
