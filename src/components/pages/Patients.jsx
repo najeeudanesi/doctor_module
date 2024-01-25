@@ -69,9 +69,11 @@ function Patients() {
           />
         </div>
 
-        <div className="flex flex-v-center  w-50 m-t-20">
-          {" "}
-          <input type="text" className="" />
+        <div className="flex flex-v-center  w-50 m-t-20 gap-10">
+          <div className="w-60 input">
+            <input type="text" />
+          </div>
+
           <div className="dropdown-input w-25 ">
             {" "}
             <select>
