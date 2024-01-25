@@ -76,7 +76,7 @@ function OutAndInpatientGraph() {
             bottom: 5,
           }}
         >
-          <CartesianGrid vertical={false} />
+          <CartesianGrid vertical={false} strokeDasharray="3" />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
