@@ -5,7 +5,7 @@ import "./assets/css/index.css"
 import "./assets/css/pages-icons.css"
 import "./assets/css/pages-sidebar.css"
 import { createBrowserHistory } from 'history';
-// import Homepage from './components/home';
+import Homepage from './components/home';
 // import ProtectedRoute from './routes/ProtectedRoute';
 import { Toaster } from 'react-hot-toast';
 // import UserPortal from './components/UserPortal';
@@ -25,6 +25,7 @@ function App() {
       <Router >
         <div>
           <Routes>
+            <Route path="/" Component={Homepage} />
             <Route path="*" Component={PageLayout} />
             {/* <Route
               path="/doctor/*"

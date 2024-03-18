@@ -4,7 +4,7 @@ import Header from "./Header";
 import PortalRoutes from "../../routes/PortalRoutes";
 import Footer from "./Footer";
 
-import menuList from "../../config/sidebarMenu";
+import menuList from "../../config/sideBarMenu";
 import { createBrowserHistory } from "history";
 export default function PageLayout() {
   const history = createBrowserHistory();
