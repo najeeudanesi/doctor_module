@@ -4,6 +4,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import EdsgLogo from "../../assets/images/SidebarLogo.png";
 import { AiOutlineHome } from "react-icons/ai";
+import { logout } from "../../utility/auth";
 // import { logout } from "../../utility/auth";
 
 const Sidebar = ({ history, menuList }) => {
@@ -29,7 +30,7 @@ const Sidebar = ({ history, menuList }) => {
             menuList.map((item) => (
               <MenuItem props={item} pathname={pathname} key={item.title} />
             ))}
-          <li>
+          <li onClick={logout}>
             <RiLogoutCircleLine className="icon" />
             <Link className="has-sub-menu">
               <span className="title">Log Out</span>

@@ -4,16 +4,26 @@ import React, { useEffect, useContext, useState } from 'react';
 
 import { post } from '../../utility/fetch';
 import coatOfArm from '../../assets/images/coat-of-arm.png';
+import greenz from '../../assets/images/Greenzone.png';
+import icon from '../../assets/images/Group-2.png';
+
+
 import Footer from '../layouts/Footer';
 import notification from '../../utility/notification';
 import { useNavigate } from 'react-router-dom';
+import InputField from '../UI/InputField';
+
 
 const Home = (props) => {
 
-    const [email, setEmail] = useState("najeeudanesi@gmail.com");
-    const [password, setPassword] = useState("123123123aA@");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
-  const makePostRequest = async () => {
+
+    
+const makePostRequest = async () => {
+  setLoading(true);
  const   payload = {
     usernameOrEmail: email,
         password: password,
@@ -38,22 +48,36 @@ const Home = (props) => {
       });
     }
     // setTimeout(() => window.location.assign("/"), 6000);
+
+    setLoading(false)
   };
 
-  useEffect(() => {
-    makePostRequest();
-  }, []);
+  // useEffect(() => {
+  //   makePostRequest();
+  // }, []);
 
   return (
     <div className="w-100">
       <div className="banner">
-        <div className="login">
-          <div className="coat-of-arm">
-            <img src={coatOfArm} alt="" />
-            <h2>EDO STATE</h2>
-            <h4>GOVERNMENT</h4>
-          </div>
-          <div className="form">Loading...</div>
+        <div className="log flex-h-center w-100">
+          <div>
+        <div className='flex-h-center'>
+          <div className='m-l-20'><img src={icon}  alt='' width={26} height={26} /></div>
+         <div> <img src={greenz}  alt='' width={100} height={26} /></div>
+         </div>
+         
+         <div className=' m-t-40'>
+        <label>Username or Email</label>
+         <InputField type="text" name={"email"} value={email} placeholder={"username or email"} onChange={(e) => setEmail(e.target.value)} />
+        </div>
+         <div className='m-t-40'>
+        <label>Password</label>
+         <InputField type="password" name={"password"} value={password} placeholder={"password"} onChange={(e) => setPassword(e.target.value)} />
+        </div>
+
+        <div className='m-t-40'> <button disabled={loading} onClick={makePostRequest} className='w-100 btn'>Submit</button></div>
+       
+        </div>
         </div>
       </div>
       <Footer />

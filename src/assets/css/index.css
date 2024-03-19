@@ -815,6 +815,7 @@ section {
   float: right !important;
 }
 
+
 .inline-block {
   display: inline-block !important;
 }
@@ -924,32 +925,29 @@ footer {
 
 div.banner {
   width: 100%;
-  padding: 130px 0 100px;
-  background-size: cover;
-  background-blend-mode: luminosity;
-  background-image: url('../images/banner.png');
+  height: 750px;
+  background-image: url('../images/bg-login.png');
   background-color: #1C811C55;
-  background-position-y: 20%;
+
 }
 
 div.banner .login {
   margin: 0 auto;
   max-width: 600px;
+  height: 750px;
   padding: 40px;
   position: unset;
-  border-radius: 10px;
-  background-color: #fffffff0;
+  background-color: #ffffff;
 }
 
-div.login {
-  display: flex;
-}
+.log{
+  margin: 0 auto;
+  max-width: 600px;
+  height: 750px;
+  padding: 100px;
+  position: unset;
+  background-color:#FDFFEE;
 
-div.login .coat-of-arm {
-  border-right: 1px solid #C6C6C6;
-  padding-top: 15px;
-  padding-right: 40px;
-  width: 270px;
 }
 
 div.login .coat-of-arm img {
@@ -994,6 +992,8 @@ div.login .form {
   font-size: .9rem;
   color: #777;
 }
+
+
 
 div.login .form button {
   width: 100%;
