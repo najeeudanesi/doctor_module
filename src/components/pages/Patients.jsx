@@ -1,13 +1,118 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PatientsTable from "../tables/PatientsTable";
 import { PatientData, stats } from "./mockdata/PatientData";
 import StatCard from "../UI/StatCard";
+import { get } from "../../utility/fetch";
 import { RiCalendar2Fill } from "react-icons/ri";
 
 function Patients() {
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const [assignedPatients, setAssignedPatients] = useState(0)
+  const [outPatients, setOutpatients] = useState(0)
+  const [waiting, setWaiting] = useState(0)
+  const [admitted, setAdmitted] = useState(0)
+  const [hmoPatients, setHmoPatients] = useState(0)
+  const [summary, setSummary] = useState([0, 0, 0, 0, 0])
+
+  //done
+  const getAssigned = async () => {
+    try {
+      const data = await get(
+        `/dashboard/assignedtodoctor`, { status: 1 }
+      )
+      setAssignedPatients(data.data)
+      console.log(data)
+
+    } catch (e) {
+      console.log("Error: ", e)
+
+    }
+
+  }
+
+  const getOutPatients = async () => {
+    try {
+      const data = await get(
+        `/dashboard/doctor/admittedpatients`
+      )
+
+      setOutpatients(data.data);
+      console.log(data)
+
+    } catch (e) {
+      console.log("Error: ", e)
+
+    }
+
+  }
+
+  const getWaiting = async () => {
+    try {
+      const data = await get(
+        `/dashboard/admission`
+      )
+
+      setWaiting(data.data.count);
+      console.log(data)
+
+    } catch (e) {
+      console.log("Error: ", e)
+
+    }
+
+  }
+  const getAdmitted = async () => {
+    try {
+      const data = await get(
+        `/dashboard/doctor/admittedpatients`
+      )
+
+      setAdmitted(data.data);
+      console.log(data)
+
+    } catch (e) {
+      console.log("Error: ", e)
+
+    }
+
+  }
+
+  //done
+  const getHmoPatients = async () => {
+    try {
+      const data = await get(
+        `/dashboard/hmo-patient`
+      )
+
+      setHmoPatients(data.data);
+      console.log(data)
+
+    } catch (e) {
+      console.log("Error: ", e)
+
+    }
+
+  }
+
+
+
+  const fetchData = async () => {
+    await getAssigned();
+    await getAdmitted();
+    await getHmoPatients();
+    await getOutPatients();
+    await getWaiting();
+    setSummary([assignedPatients, outPatients, waiting, admitted, hmoPatients])
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+
 
   // Function to handle date change
   const handleDateChange = (date) => {
@@ -49,9 +154,9 @@ function Patients() {
       <h3>Patients Management</h3>
       <div className="m-t-20">
         <div className="flex">
-          {stats.map((stat) => (
+          {stats.map((stat, index) => (
             <div className="m-r-20" key={stat.id}>
-              <StatCard data={stat} icon={stat.icon} />
+              <StatCard data={stat} number={summary[index]} icon={stat.icon} />
             </div>
           ))}
         </div>

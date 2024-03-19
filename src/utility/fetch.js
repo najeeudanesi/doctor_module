@@ -27,7 +27,7 @@ async function fetchBackend(endpoint, method, auth, body, params) {
   if (auth) {
     const token = sessionStorage.getItem('token');
     if (token) {
-      headers.Authorization = `Bearer ${token}`;
+      headers.Authorization = `${token}`;
     }
   }
 

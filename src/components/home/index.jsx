@@ -3,7 +3,7 @@ import React, { useEffect, useContext, useState } from 'react';
 
 
 import { post } from '../../utility/fetch';
-import coatOfArm from '../../assets/images/coat-of-arm.png';
+
 import greenz from '../../assets/images/Greenzone.png';
 import icon from '../../assets/images/Group-2.png';
 
