@@ -18,7 +18,7 @@ export default () => (
         <Route path="/patients" element={<AuthRoute><Patients /> </AuthRoute>} />
         <Route path="/facility" element={<AuthRoute><Facility /></AuthRoute>} />
         <Route path="/customer-management" element={<AuthRoute><CustomerManagement /></AuthRoute>} />
-        <Route path="/patient-details" element={<AuthRoute><PatientDetails /></AuthRoute>} />
+        <Route path="/patient-details/:patientId" element={<AuthRoute><PatientDetails /></AuthRoute>} />
     </Routes>
 
 );
