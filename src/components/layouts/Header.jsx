@@ -12,6 +12,8 @@ const Header = ({ history, details = {}, navList = [] }) => {
   const [userPix, setUserPix] = useState("");
   const [imgHasError, setImgHasError] = useState(false);
 
+
+
   // useEffect(() => {
   //   !imgHasError && setUserPix(formatFileUrl(details.userProfilePicture));
   // }, [imgHasError, details]);
@@ -40,7 +42,7 @@ const Header = ({ history, details = {}, navList = [] }) => {
           <div className="right-item">
             <div
               role="presentation"
-              onClick={() => {}}
+              onClick={() => { }}
               className="user-avater-details flex flex-v-center pointer"
             >
               <div className="m-r-5 right-text" style={{ paddingTop: "3px" }}>

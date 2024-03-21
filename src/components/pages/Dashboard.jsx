@@ -16,14 +16,29 @@ function Dashboard() {
   const [admitted, setAdmitted] = useState(0)
   const [hmoPatients, setHmoPatients] = useState(0)
   const [summary, setSummary] = useState([0, 0, 0, 0, 0])
+  const [graph, setGraph] = useState({})
 
   //done
+  const getGraphDetails = async () => {
+    try {
+      const data = await get(
+        `/dashboard/patientcaretypedata`
+      )
+      setGraph(data)
+      console.log(data)
+
+    } catch (e) {
+      console.log("Error: ", e)
+
+    }
+
+  }
   const getAssigned = async () => {
     try {
       const data = await get(
         `/dashboard/assignedtodoctor`, { status: 1 }
       )
-      setAssignedPatients(data.data)
+      setAssignedPatients(data)
       console.log(data)
 
     } catch (e) {
@@ -39,7 +54,7 @@ function Dashboard() {
         `/dashboard/doctor/admittedpatients`
       )
 
-      setOutpatients(data.data);
+      setOutpatients(data);
       console.log(data)
 
     } catch (e) {
@@ -52,10 +67,10 @@ function Dashboard() {
   const getWaiting = async () => {
     try {
       const data = await get(
-        `/dashboard/admission`
+        `/dashboard/administered`
       )
 
-      setWaiting(data.data.count);
+      setWaiting(data);
       console.log(data)
 
     } catch (e) {
@@ -67,10 +82,10 @@ function Dashboard() {
   const getAdmitted = async () => {
     try {
       const data = await get(
-        `/dashboard/doctor/admittedpatients`
+        `/dashboard/doctor/admittedpatients`,
       )
 
-      setAdmitted(data.data);
+      setAdmitted(data);
       console.log(data)
 
     } catch (e) {
@@ -105,6 +120,7 @@ function Dashboard() {
     await getHmoPatients();
     await getOutPatients();
     await getWaiting();
+    await getGraphDetails();
     setSummary([assignedPatients, outPatients, waiting, admitted, hmoPatients])
   }
 

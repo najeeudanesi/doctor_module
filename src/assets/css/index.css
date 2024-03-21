@@ -589,6 +589,9 @@ height: 55px;
   /* Add padding for spacing around the card */
 }
 
+.margin-lg{
+  margin-left: 100px;
+}
 
 body {
   margin: 0;

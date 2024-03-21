@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import PatientsTable from "../tables/PatientsTable";
-import { PatientData, stats } from "./mockdata/PatientData";
 import StatCard from "../UI/StatCard";
 import { get } from "../../utility/fetch";
 import { RiCalendar2Fill } from "react-icons/ri";
+import { stats } from "./mockdata/PatientData";
+import SearchInput from "../UI/SearchInput";
 
 function Patients() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -16,6 +17,20 @@ function Patients() {
   const [admitted, setAdmitted] = useState(0)
   const [hmoPatients, setHmoPatients] = useState(0)
   const [summary, setSummary] = useState([0, 0, 0, 0, 0])
+  const [patientData, setPatientData] = useState([])
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState("")
+
+  const getTableData = async () => {
+    try {
+      const data = await get(`/patients/assignedtodoctor`);
+      setPatientData(data);
+      setFilteredData(data); // Initialize filtered data with all patient data
+      console.log(data);
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+  };
 
   //done
   const getAssigned = async () => {
@@ -105,14 +120,26 @@ function Patients() {
     await getHmoPatients();
     await getOutPatients();
     await getWaiting();
+    await getTableData();
     setSummary([assignedPatients, outPatients, waiting, admitted, hmoPatients])
   }
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, []);
 
+  useEffect(() => {
+    // Filter patient data whenever searchText changes
+    const filteredResults = patientData.filter((patient) =>
+      patient.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
+      patient.lastName.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredData(filteredResults);
+  }, [searchText, patientData]);
 
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value);
+  };
 
   // Function to handle date change
   const handleDateChange = (date) => {
@@ -175,8 +202,8 @@ function Patients() {
         </div>
 
         <div className="flex flex-v-center  w-50 m-t-20 gap-10">
-          <div className="w-60 input">
-            <input type="text" />
+          <div className="w-60">
+            <SearchInput type="text" onChange={handleSearchChange} value={searchText} name="searchText" />
           </div>
 
           <div className="dropdown-input w-25 ">
@@ -192,7 +219,7 @@ function Patients() {
       </div>
 
       <div className="">
-        <PatientsTable data={PatientData} />
+        <PatientsTable data={filteredData} />
       </div>
     </div>
   );
