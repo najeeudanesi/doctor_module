@@ -15,6 +15,7 @@ function Dashboard() {
   const [waiting, setWaiting] = useState(0)
   const [admitted, setAdmitted] = useState(0)
   const [hmoPatients, setHmoPatients] = useState(0)
+  const [gender, setGender] = useState({})
   const [summary, setSummary] = useState([0, 0, 0, 0, 0])
   const [graph, setGraph] = useState({})
 
@@ -25,6 +26,20 @@ function Dashboard() {
         `/dashboard/patientcaretypedata`
       )
       setGraph(data)
+      console.log(data)
+
+    } catch (e) {
+      console.log("Error: ", e)
+
+    }
+
+  }
+  const getGender = async () => {
+    try {
+      const data = await get(
+        `/dashboard/gender`
+      )
+      setGender(data)
       console.log(data)
 
     } catch (e) {
@@ -121,6 +136,7 @@ function Dashboard() {
     await getOutPatients();
     await getWaiting();
     await getGraphDetails();
+    await getGender();
     setSummary([assignedPatients, outPatients, waiting, admitted, hmoPatients])
   }
 
@@ -155,7 +171,7 @@ function Dashboard() {
             </div>
           </div>
           <div className="w-20 m-t-40">
-            <GenderDistribution />
+            <GenderDistribution propData={gender} />
           </div>
         </div>
       </div>

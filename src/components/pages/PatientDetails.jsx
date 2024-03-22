@@ -36,16 +36,16 @@ function PatientDetails() {
         return <Personal data={patient} />;
       }
       case "contactDetails": {
-        return <ContactDetails data={patient.contact} />;
+        return <ContactDetails data={patient?.contact} />;
       }
       case "emergencyContact": {
-        return <EmergencyContact data={patient.emergencyContact} />;
+        return <EmergencyContact data={patient?.emergencyContact} />;
       }
       case "medicalRecord": {
         return <MedicalRecord />;
       }
       case "visits": {
-        return <VisitTable data={patient.visits} />;
+        return <VisitTable data={patient?.visits} nurseName={patient?.nurseName} doctorName={patient?.doctorName} />;
       }
 
       default:

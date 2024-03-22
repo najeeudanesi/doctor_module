@@ -1,6 +1,6 @@
 import React from "react";
 
-function VisitTable({ data }) {
+function VisitTable({ data, nurseName, doctorName }) {
     return (
         <div className="w-100 ">
             <div className="w-100 none-flex-item m-t-40">
@@ -31,8 +31,8 @@ function VisitTable({ data }) {
                                 <td>{row.heartPulse}</td>
                                 <td>{row.bloodPressure}</td>
                                 <td>{row.notes}</td>
-                                <td>{row.nurseId}</td>
-                                <td>{row.doctorId}</td>
+                                <td>{nurseName}</td>
+                                <td>{doctorName}</td>
 
                             </tr>
                         ))}
