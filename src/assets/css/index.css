@@ -480,6 +480,33 @@ height: 55px;
   text-align: center;
   width: auto;
 }
+.bordered-table-2 th {
+  border: 1px solid #cccccc9c;
+  color: white;
+  background-color: #5050509c;
+  margin-bottom: 11px;
+  
+  padding: 8px;
+  height: 50px;
+  text-align: left;
+
+}
+
+.bordered-table-2 td {
+  border: 1px solid #cccccc9c;
+  padding: 8px;
+  height: 50px;
+  text-align: left;
+  width: auto;
+}
+
+.bordered-table-2 td:last-child {
+  border: 1px solid #cccccc9c;
+  padding: 8px;
+  height: 50px;
+  text-align: center;
+  width: auto;
+}
 
 .slim-b{
   height: 30px;

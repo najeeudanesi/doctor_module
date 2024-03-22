@@ -5,6 +5,7 @@ import EmergencyContact from "./Patient/EmergencyContact";
 import MedicalRecord from "./Patient/MedicalRecord";
 import { useParams } from "react-router-dom"; // Import useParams
 import { get } from "../../utility/fetch";
+import VisitTable from "../tables/VisitTable";
 
 function PatientDetails() {
   const [selectedTab, setSelectedTab] = useState("personal");
@@ -42,6 +43,9 @@ function PatientDetails() {
       }
       case "medicalRecord": {
         return <MedicalRecord />;
+      }
+      case "visits": {
+        return <VisitTable data={patient.visits} />;
       }
 
       default:
@@ -97,8 +101,8 @@ function PatientDetails() {
                   Immunization
                 </div>
                 <div
-                  className={`tab-item ${selectedTab === "vitals" ? "active" : ""}`}
-                  onClick={() => setSelectedTab("vitals")}
+                  className={`tab-item ${selectedTab === "visits" ? "active" : ""}`}
+                  onClick={() => setSelectedTab("visits")}
                 >
                   Vitals
                 </div>
@@ -134,7 +138,8 @@ function PatientDetails() {
                   Insurance
                 </div>
               </div>
-              {renderTabContent()}</>) : (
+              <div className="w-100">  {renderTabContent()}</div>
+            </>) : (
               <div className="m-t-40 bold-text">
                 <h1>Patient not found</h1>
 
