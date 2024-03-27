@@ -22,9 +22,9 @@ function PatientsTable({ data }) {
           </thead>
 
           <tbody className="white-bg view-det-pane">
-            {data.map((row) => (
-              <tr key={row.id}>
-                <td>{row.patientId}</td>
+            {data.map((row, index) => (
+              <tr key={index}>
+                <td>{index}</td>
                 <td>{row.firstName}</td>
                 <td>{row.lastName}</td>
                 <td>{row.age}</td>

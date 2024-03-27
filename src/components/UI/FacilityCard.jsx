@@ -4,7 +4,7 @@ import { RiHotelBedFill } from "react-icons/ri";
 function FacilityCard({ data }) {
   return (
     <div>
-      {data?.occupied ? (
+      {data?.isOccupied === "Occupied" ? (
         <div>
           <div className="card">
             <RiHotelBedFill size={98} className="text-green" />

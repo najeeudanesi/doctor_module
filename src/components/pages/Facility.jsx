@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FacilityCard from "../UI/FacilityCard";
+import { get } from "../../utility/fetch";
 
 function Facility() {
   // Sample data with a patient's name
   const [selectedTab, setSelectedTab] = useState("beds");
+  const [newData, setNewData] = useState([])
   const data = [
     {
       patientName: "William Humphrey",
@@ -83,15 +85,32 @@ function Facility() {
     },
   ];
 
+  const fetchData = async () => {
+    try {
+      const response = await get(`/facilities/beds/assignedtodoctor`)
+      console.log(response)
+      setNewData(response)
+
+    } catch (e) {
+      console.log(e)
+    }
+
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
+
   const renderTabContent = () => {
     switch (selectedTab) {
       case "beds":
-        return (
-          <div className="grid gap-16 m-t-20">
-            {data.map((patient, index) => (
+        return (<div>
+          {newData ? (<div className="grid gap-16 m-t-20">
+            {newData.map((patient, index) => (
               <FacilityCard key={index} data={patient} />
             ))}
-          </div>
+          </div>) : (<div>null</div>)}
+        </div>
         );
       case "equipments":
         // Render equipment content here

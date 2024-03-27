@@ -18,6 +18,7 @@ function Dashboard() {
   const [gender, setGender] = useState({})
   const [summary, setSummary] = useState([0, 0, 0, 0, 0])
   const [graph, setGraph] = useState({})
+  const [loading, setLoading] = useState(false)
 
   //done
   const getGraphDetails = async () => {
@@ -117,7 +118,7 @@ function Dashboard() {
         `/dashboard/hmo-patient`
       )
 
-      setHmoPatients(data.data);
+      setHmoPatients(data);
       console.log(data)
 
     } catch (e) {
@@ -130,6 +131,7 @@ function Dashboard() {
 
 
   const fetchData = async () => {
+    setLoading(true);
     await getAssigned();
     await getAdmitted();
     await getHmoPatients();
@@ -137,44 +139,54 @@ function Dashboard() {
     await getWaiting();
     await getGraphDetails();
     await getGender();
-    setSummary([assignedPatients, outPatients, waiting, admitted, hmoPatients])
+    setLoading(false)
+
   }
 
   useEffect(() => {
     fetchData();
   }, [])
 
+  useEffect(() => {
+    setSummary([assignedPatients, outPatients, waiting, admitted, hmoPatients])
+  }, [assignedPatients, outPatients, waiting, admitted, hmoPatients])
+
+
 
 
 
   return (
     <div className="w-100 m-t-80">
-      <div className="m-t-20">
-        <div className="flex">
-          {" "}
-          {stats.map((stat, index) => (
-            <div className="m-r-20" key={index}>
-              <StatCard data={stat} number={summary[index]} icon={stat.icon} />
+      {loading ? (<div className="loader">loading ...</div>) : (
+        <div className="m-t-20">
+          <div className="flex">
+            {" "}
+            {stats.map((stat, index) => (
+              <div className="m-r-20" key={index}>
+                <StatCard data={stat} number={summary[index]} icon={stat.icon} />
+              </div>
+            ))}
+          </div>
+          <div className="w-100 gap-16 flex">
+            <div className="w-80  m-t-40">
+              <OutAndInpatientGraph propdata={graph} />
+              <div className="flex m-t-20 w-100">
+                <div className="m-r-20 w-50">
+                  <PatientAdmission />
+                </div>
+                <div className="w-50">
+                  <PatientsBreakdown />
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
-        <div className="w-100 gap-16 flex">
-          <div className="w-80  m-t-40">
-            <OutAndInpatientGraph />
-            <div className="flex m-t-20 w-100">
-              <div className="m-r-20 w-50">
-                <PatientAdmission />
-              </div>
-              <div className="w-50">
-                <PatientsBreakdown />
-              </div>
+            <div className="w-20 m-t-40">
+              <GenderDistribution propData={gender} />
             </div>
           </div>
-          <div className="w-20 m-t-40">
-            <GenderDistribution propData={gender} />
-          </div>
         </div>
-      </div>
+      )}
+
+
     </div>
   );
 }

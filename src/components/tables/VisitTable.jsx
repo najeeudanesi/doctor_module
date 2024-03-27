@@ -22,15 +22,15 @@ function VisitTable({ data, nurseName, doctorName }) {
 
                     <tbody className="white-bg view-det-pane">
                         {data.map((row) => (
-                            <tr key={row.visitId}>
-                                <td>{row.datOfVisit}</td>
-                                <td>{row.age}</td>
-                                <td>{row.weight}</td>
-                                <td>{row.temperature}</td>
-                                <td>{row.height}</td>
-                                <td>{row.heartPulse}</td>
-                                <td>{row.bloodPressure}</td>
-                                <td>{row.notes}</td>
+                            <tr key={row?.visitId}>
+                                <td>{row?.datOfVisit}</td>
+                                <td>{row?.age}</td>
+                                <td>{row?.weight}</td>
+                                <td>{row?.temperature}</td>
+                                <td>{row?.height}</td>
+                                <td>{row?.heartPulse}</td>
+                                <td>{row?.bloodPressure}</td>
+                                <td>{row?.notes}</td>
                                 <td>{nurseName}</td>
                                 <td>{doctorName}</td>
 

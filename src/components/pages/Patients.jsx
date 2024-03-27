@@ -20,12 +20,13 @@ function Patients() {
   const [patientData, setPatientData] = useState([])
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const getTableData = async () => {
     try {
       const data = await get(`/patients/assignedtodoctor`);
-      setPatientData(data);
-      setFilteredData(data); // Initialize filtered data with all patient data
+      setPatientData(data.data);
+      setFilteredData(data.data); // Initialize filtered data with all patient data
       console.log(data);
     } catch (e) {
       console.log("Error: ", e);
@@ -38,7 +39,7 @@ function Patients() {
       const data = await get(
         `/dashboard/assignedtodoctor`, { status: 1 }
       )
-      setAssignedPatients(data.data)
+      setAssignedPatients(data)
       console.log(data)
 
     } catch (e) {
@@ -54,7 +55,7 @@ function Patients() {
         `/dashboard/doctor/admittedpatients`
       )
 
-      setOutpatients(data.data);
+      setOutpatients(data);
       console.log(data)
 
     } catch (e) {
@@ -64,28 +65,28 @@ function Patients() {
 
   }
 
-  const getWaiting = async () => {
-    try {
-      const data = await get(
-        `/dashboard/admission`
-      )
+  // const getWaiting = async () => {
+  //   try {
+  //     const data = await get(
+  //       `/dashboard/admission`
+  //     )
 
-      setWaiting(data.data.count);
-      console.log(data)
+  //     setWaiting(data.data.count);
+  //     console.log(data)
 
-    } catch (e) {
-      console.log("Error: ", e)
+  //   } catch (e) {
+  //     console.log("Error: ", e)
 
-    }
+  //   }
 
-  }
+  // }
   const getAdmitted = async () => {
     try {
       const data = await get(
         `/dashboard/doctor/admittedpatients`
       )
 
-      setAdmitted(data.data);
+      setAdmitted(data);
       console.log(data)
 
     } catch (e) {
@@ -102,8 +103,8 @@ function Patients() {
         `/dashboard/hmo-patient`
       )
 
-      setHmoPatients(data.data);
-      console.log(data)
+      setHmoPatients(data);
+      console.log("hmo ", data)
 
     } catch (e) {
       console.log("Error: ", e)
@@ -115,18 +116,24 @@ function Patients() {
 
 
   const fetchData = async () => {
+    setLoading(true)
     await getAssigned();
     await getAdmitted();
     await getHmoPatients();
     await getOutPatients();
-    await getWaiting();
-    await getTableData();
-    setSummary([assignedPatients, outPatients, waiting, admitted, hmoPatients])
+    // await getWaiting();
+    await getTableData()
+    setLoading(false)
   }
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    setSummary([assignedPatients, outPatients, waiting, admitted, hmoPatients])
+  }, [assignedPatients, outPatients, waiting, admitted, hmoPatients])
+
 
   useEffect(() => {
     // Filter patient data whenever searchText changes
@@ -179,34 +186,35 @@ function Patients() {
   return (
     <div className="w-100 m-t-80">
       <h3>Patients Management</h3>
-      <div className="m-t-20">
-        <div className="flex">
-          {stats.map((stat, index) => (
-            <div className="m-r-20" key={stat.id}>
-              <StatCard data={stat} number={summary[index]} icon={stat.icon} />
-            </div>
-          ))}
+      {!loading ? (<div className="m-t-20">
+        <div>
+          <div className="flex">
+            {stats.map((stat, index) => (
+              <div className="m-r-20" key={stat.id}>
+                <StatCard data={stat} number={summary[index]} icon={stat.icon} />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="flex w-100 space-between">
-        <div className="flex gap-7 m-t-40">
-          <p>Assigned Waiting Patients</p>|
-          <DatePicker
-            selected={selectedDate}
-            onChange={handleDateChange}
-            dateFormat="dd-MM-yyyy"
-            maxDate={new Date()}
-            customInput={<CustomInput />}
-            icon={<RiCalendar2Fill />}
-          />
-        </div>
-
-        <div className="flex flex-v-center  w-50 m-t-20 gap-10">
-          <div className="w-60">
-            <SearchInput type="text" onChange={handleSearchChange} value={searchText} name="searchText" />
+        <div className="flex w-100 space-between">
+          <div className="flex gap-7 m-t-40">
+            <p>Assigned Waiting Patients</p>|
+            <DatePicker
+              selected={selectedDate}
+              onChange={handleDateChange}
+              dateFormat="dd-MM-yyyy"
+              maxDate={new Date()}
+              customInput={<CustomInput />}
+              icon={<RiCalendar2Fill />}
+            />
           </div>
 
-          <div className="dropdown-input w-25 ">
+          <div className="flex flex-h-end  w-50 m-t-20 gap-10">
+            <div className="w-60">
+              <SearchInput type="text" onChange={handleSearchChange} value={searchText} name="searchText" />
+            </div>
+
+            {/* <div className="dropdown-input w-25 ">
             {" "}
             <select>
               <option value="Ward A">Ward A</option>
@@ -214,13 +222,16 @@ function Patients() {
               <option value="Ward C">Ward C</option>
               <option value="Ward D">Ward D</option>
             </select>
+          </div> */}
           </div>
         </div>
-      </div>
 
-      <div className="">
-        <PatientsTable data={filteredData} />
-      </div>
+        <div className="">
+          <PatientsTable data={filteredData} />
+        </div>
+      </div>) : (<div>loading....</div>)}
+
+
     </div>
   );
 }
