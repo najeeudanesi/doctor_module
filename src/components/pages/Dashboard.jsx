@@ -17,7 +17,16 @@ function Dashboard() {
   const [hmoPatients, setHmoPatients] = useState(0)
   const [gender, setGender] = useState({})
   const [summary, setSummary] = useState([0, 0, 0, 0, 0])
-  const [graph, setGraph] = useState({})
+  const [graph, setGraph] = useState({
+    "inPatientPercentage": 0,
+    "outPatientPercentage": 0,
+    "dailyAverageCount": [
+      {
+        "date": "Mar 21",
+        "inPatientCount": 0,
+        "outPatientCount": 0
+      },]
+  })
   const [loading, setLoading] = useState(false)
 
   //done
@@ -171,12 +180,12 @@ function Dashboard() {
             <div className="w-80  m-t-40">
               <OutAndInpatientGraph propdata={graph} />
               <div className="flex m-t-20 w-100">
-                <div className="m-r-20 w-50">
+                {/* <div className="m-r-20 w-50">
                   <PatientAdmission />
                 </div>
                 <div className="w-50">
                   <PatientsBreakdown />
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="w-20 m-t-40">

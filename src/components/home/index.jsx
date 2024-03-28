@@ -9,9 +9,10 @@ import icon from '../../assets/images/Group-2.png';
 
 
 import Footer from '../layouts/Footer';
-import notification from '../../utility/notification';
+// import notification from '../../utility/notification';
 import { useNavigate } from 'react-router-dom';
 import InputField from '../UI/InputField';
+import toast from 'react-hot-toast';
 
 
 const Home = (props) => {
@@ -43,11 +44,13 @@ const Home = (props) => {
       }
     } catch (error) {
       localStorage.removeItem('USER_INFO');
-      notification({
-        title: 'ACCESS DENIED',
-        message: 'Sorry, This user does not have access to this application. Please Contact Admin',
-        type: 'warning',
-      });
+      // notification({
+      //   title: 'ACCESS DENIED',
+      //   message: 'Sorry, This user does not have access to this application. Please Contact Admin',
+      //   type: 'warning',
+      // });
+
+      toast.error("Login failed")
     }
     // setTimeout(() => window.location.assign("/"), 6000);
 

@@ -66,7 +66,7 @@ const inputData = {
 
 
 function OutAndInpatientGraph({ propdata }) {
-  const { dist, data } = convertData(inputData);
+  const { dist, data } = convertData(propdata);
   function convertData(inputData) {
     const outPatientTotal = inputData.outPatientPercentage
     const inPatientTotal = inputData.inPatientPercentage

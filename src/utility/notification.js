@@ -1,16 +1,16 @@
-import  {toast}  from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 
 
 const notification = ({
   title,
   message,
   type,
-  onRemoval = () => {},
-  duration = 5000
+  onRemoval = () => { },
+  duration = 50000
 }) => {
   try {
     toast(message, {
-      autoClose: 5000,
+      autoClose: 50000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,

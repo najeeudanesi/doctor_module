@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function PatientsTable({ data }) {
+
+  const navigate = useNavigate();
   return (
     <div className="w-100 ">
       <div className="w-100 none-flex-item m-t-40">
@@ -23,16 +26,16 @@ function PatientsTable({ data }) {
 
           <tbody className="white-bg view-det-pane">
             {data.map((row, index) => (
-              <tr key={index}>
-                <td>{index}</td>
+              <tr key={index} className="pointer" onClick={() => navigate(`/patient-details/${row.id}`)}>
+                <td>{index + 1}</td>
                 <td>{row.firstName}</td>
                 <td>{row.lastName}</td>
                 <td>{row.age}</td>
-                <td>{row.weight}</td>
-                <td>{row.temperature}</td>
-                <td>{row.height}</td>
-                <td>{row.heart}</td>
-                <td>{row.resp}</td>
+                <td>{row.visits[0].weight}</td>
+                <td>{row.visits[0].temperature}</td>
+                <td>{row.visits[0].height}</td>
+                <td>{row.visits[0].heartPulse}</td>
+                <td>{row.visits[0].respiratory}</td>
                 <td>{row.assignedNurse}</td>
                 <td>{row.dateCreated}</td>
               </tr>

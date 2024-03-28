@@ -52,7 +52,7 @@ function checkHttpStatus(response) {
   const errorText = response && response.statusText ? response.statusText : 'Unknown Error';
   const error = new Error(errorText);
   error.response = response;
-  // // toast.error(errorText)
+  // toast.error(errorText)
   // throw error;
 
 }

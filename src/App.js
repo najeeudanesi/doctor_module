@@ -37,7 +37,7 @@ function App() {
 
 
         </ BrowserRouter>
-        <Toaster />
+        <Toaster position='top-right' />
       </div>
     </MyProvider>
   );
