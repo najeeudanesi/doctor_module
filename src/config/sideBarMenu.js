@@ -11,6 +11,4 @@ export default [
     { title: 'Patient', href: '/patients', icon: <RiHealthBookLine className="icon" /> },
     { title: 'Facility', href: '/facility', icon: <RiHotelBedFill className="icon" /> },
     { title: 'Customer Engagement', href: '/customer-engagement', icon: <RiHeartPulseLine className="icon" /> },
-
-
 ];

@@ -151,17 +151,17 @@ function Facility() {
         </div>
       </div>
 
-      <div className="dropdown-input w-25 m-t-20 ">
+      {/* <div className="dropdown-input w-25 m-t-20 ">
         <select>
           <option value="Ward A">Ward A</option>
           <option value="Ward B">Ward B</option>
           <option value="Ward C">Ward C</option>
           <option value="Ward D">Ward D</option>
         </select>
-      </div>
+      </div> */}
 
       <div className="m-t-20 bold-text">
-        Assigned Patients location | Ward A
+        Assigned Patients location
       </div>
 
       {renderTabContent()}

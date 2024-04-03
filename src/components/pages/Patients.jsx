@@ -185,8 +185,9 @@ function Patients() {
 
   return (
     <div className="w-100 m-t-80">
-      <h3>Patients Management</h3>
+
       {!loading ? (<div className="m-t-20">
+        <h3>Patients Management</h3>
         <div>
           <div className="flex">
             {stats.map((stat, index) => (

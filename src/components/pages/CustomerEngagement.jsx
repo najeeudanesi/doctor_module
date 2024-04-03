@@ -68,8 +68,10 @@ function CustomerEngagement() {
     console.log(totalValue)
   }, [month, currentPage]);
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
   };
 
   const handleMonthChange = (event) => {
@@ -134,18 +136,38 @@ function CustomerEngagement() {
             <div className="flex gap-8">
               <div className="bold-text">Page</div> <div>{currentPage}/{totalPages}</div>
             </div>
-            <div>
-              {Array.from({ length: totalPages }, (_, i) => (
+            <div className="flex gap-8">
+              {/* Previous button */}
+              <button
+                className={`pagination-btn ${currentPage === 1 ? 'disabled' : ''}`}
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                {"<<"}
+              </button>
+              {/* Page numbers */}
+              {Array.from({ length: totalPages > 3 ? 3 : totalPages }, (_, i) => (
                 <button
                   key={`page-${i + 1}`}
-                  className={`pagination-btn ${currentPage === i + 1 ? "active" : ""}`}
+                  className={`pagination-btn ${currentPage === i + 1 ? 'bg-green text-white' : ''}`}
                   onClick={() => handlePageChange(i + 1)}
                 >
                   {i + 1}
                 </button>
               ))}
+              {/* Ellipsis */}
+              {totalPages > 3 && <span>...</span>}
+              {/* Next button */}
+              <button
+                className={`pagination-btn ${currentPage === totalPages ? 'disabled' : ''}`}
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                {">>"}
+              </button>
             </div>
           </div>
+
         </div>
       </div>
     </div>
