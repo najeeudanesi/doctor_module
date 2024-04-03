@@ -42,7 +42,7 @@ function PatientDetails() {
         return <EmergencyContact data={patient?.emergencyContact} />;
       }
       case "medicalRecord": {
-        return <MedicalRecord />;
+        return <MedicalRecord data={patient.medicalRecords} />;
       }
       case "visits": {
         return <VisitTable data={patient?.visits} nurseName={patient?.nurseName} doctorName={patient?.doctorName} />;
@@ -104,7 +104,7 @@ function PatientDetails() {
                   className={`tab-item ${selectedTab === "visits" ? "active" : ""}`}
                   onClick={() => setSelectedTab("visits")}
                 >
-                  Vitals
+                  Visits
                 </div>
                 <div
                   className={`tab-item ${selectedTab === "treatment" ? "active" : ""}`}

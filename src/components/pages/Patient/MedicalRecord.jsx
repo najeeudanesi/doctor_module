@@ -3,7 +3,7 @@ import InputField from "../../UI/InputField";
 import TextArea from "../../UI/TextArea";
 import { RiToggleFill } from "react-icons/ri";
 
-function MedicalRecord() {
+function MedicalRecord({ data }) {
   const [selectedTab, setSelectedTab] = useState("allergies");
   const [allergies, setAllergies] = useState([{ name: "", comment: "" }]);
   const [pastIllnesses, setPastIllnesses] = useState([
@@ -53,6 +53,9 @@ function MedicalRecord() {
 
   const handleAddField = () => {
     switch (selectedTab) {
+      case "general":
+        setAllergies(data || []);
+        break;
       case "allergies":
         setAllergies([...allergies, { name: "", comment: "" }]);
         break;
@@ -89,49 +92,85 @@ function MedicalRecord() {
       <div className="flex">
         <div className="m-r-80">
           <div
-            className={`pointer m-t-20  ${
-              selectedTab === "allergies" ? "pilled bold-text" : ""
-            }`}
+            className={`pointer m-t-20  ${selectedTab === "general" ? "pilled bold-text" : ""
+              }`}
+            onClick={() => setSelectedTab("general")}
+          >
+            1. General
+          </div>
+          <div
+            className={`pointer m-t-20  ${selectedTab === "allergies" ? "pilled bold-text" : ""
+              }`}
             onClick={() => setSelectedTab("allergies")}
           >
-            1. Allergies
+            2. Allergies
           </div>
           <div
-            className={`pointer m-t-20  ${
-              selectedTab === "pastIllnesses" ? "pilled bold-text" : ""
-            }`}
+            className={`pointer m-t-20  ${selectedTab === "pastIllnesses" ? "pilled bold-text" : ""
+              }`}
             onClick={() => setSelectedTab("pastIllnesses")}
           >
-            2. Past Illnesses
+            3. Past Illnesses
           </div>
           <div
-            className={`pointer m-t-20  ${
-              selectedTab === "chronicConditions" ? "pilled bold-text" : ""
-            }`}
+            className={`pointer m-t-20  ${selectedTab === "chronicConditions" ? "pilled bold-text" : ""
+              }`}
             onClick={() => setSelectedTab("chronicConditions")}
           >
-            3. Chronic Conditions
+            4. Chronic Conditions
           </div>
           <div
-            className={`pointer m-t-20  ${
-              selectedTab === "surgicalHistory" ? "pilled bold-text" : ""
-            }`}
+            className={`pointer m-t-20  ${selectedTab === "surgicalHistory" ? "pilled bold-text" : ""
+              }`}
             onClick={() => setSelectedTab("surgicalHistory")}
           >
-            4. Surgical History
+            5. Surgical History
           </div>
           <div
-            className={`pointer m-t-20 ${
-              selectedTab === "familyHistory" ? "pilled bold-text" : ""
-            }`}
+            className={`pointer m-t-20 ${selectedTab === "familyHistory" ? "pilled bold-text" : ""
+              }`}
             onClick={() => setSelectedTab("familyHistory")}
           >
-            5. Family History
+            6. Family History
           </div>
         </div>
         {/* Render content based on the selected tab */}
 
         <div>
+          {selectedTab === "general" && (
+            <div>
+              {data?.map((newData, index) => (
+                <div key={index}>
+                  <InputField
+                    label="Incident"
+                    type="text"
+                    placeholder=""
+                    value={newData.name}
+                    // onChange={(e) =>
+                    //   handleInputChange(index, "name", e.target.value)
+
+                    // }
+                    disabled={true}
+                  />
+                  <TextArea
+                    label="Comment"
+                    type="text"
+                    placeholder="Comment"
+                    value={newData.comment}
+                    // onChange={(e) =>
+                    //   handleInputChange(index, "comment", e.target.value)
+                    // }
+                    disabled={true}
+                  />
+                </div>
+              ))}
+              {/* <div className="w-100 flex flex-h-end">
+                <button className="rounded-btn m-t-20" onClick={handleAddField}>
+                  Add Allergy
+                </button>
+              </div> */}
+            </div>
+          )}
           {selectedTab === "allergies" && (
             <div>
               <div className="w-100 flex flex-h-end flex-v-center gap-4">
@@ -321,9 +360,9 @@ function MedicalRecord() {
           {/* Repeat the above structure for other tabs */}
           {/* ... */}
           <div>
-            <button className="btn w-100 m-t-20" onClick={handleContinue}>
+            {/* <button className="btn w-100 m-t-20" onClick={handleContinue}>
               Continue
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
