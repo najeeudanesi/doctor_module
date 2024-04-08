@@ -102,7 +102,7 @@ function CustomerEngagement() {
   return (
     <div className="w-100">
       <div className="m-t-20">...</div>
-      <div className="m-t-20">Customer Engagement</div>
+      <div className="m-t-20"><h3>Customer Engagement</h3></div>
       <div className="tabs m-t-20 bold-text">
         <div
           className={`tab-item ${selectedTab === "patients" ? "active" : ""}`}

@@ -5,6 +5,7 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import EdsgLogo from "../../assets/images/SidebarLogo.png";
 import { AiOutlineHome } from "react-icons/ai";
 import { logout } from "../../utility/auth";
+import aiLogo from "../../assets/images/Greezone-ai.png"; // import aiLogo 
 // import { logout } from "../../utility/auth";
 
 const Sidebar = ({ history, menuList }) => {
@@ -36,7 +37,11 @@ const Sidebar = ({ history, menuList }) => {
               <span className="title">Log Out</span>
             </Link>
           </li>
+          <div className="m-l-20 m-t-20">
+            <img src={aiLogo} alt="logo" className="brand m-l-20" width="150"></img>
+          </div>
         </ul>
+
       </div>
     </nav>
   );
