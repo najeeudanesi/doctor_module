@@ -13,76 +13,7 @@ function Facility() {
       occupied: true,
     },
 
-    {
-      patientName: "John Smith",
-      facilityId: "A2",
-      occupied: false,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "A3",
-      occupied: false,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "A4",
-      occupied: false,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "A5",
-      occupied: false,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "A6",
-      occupied: false,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "B1",
-      occupied: false,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "B2",
-      occupied: false,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "B3",
-      occupied: false,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "B4",
-      occupied: false,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "B5",
-      occupied: false,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "B6",
-      occupied: true,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "B6",
-      occupied: true,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "B6",
-      occupied: true,
-    },
-    {
-      patientName: "John Smith",
-      facilityId: "B6",
-      occupied: true,
-    },
+
   ];
 
   const fetchData = async () => {

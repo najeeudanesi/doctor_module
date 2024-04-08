@@ -27,10 +27,13 @@ function CustomerEngagement() {
   const [month, setMonth] = useState("march");
   const [avg, setAvg] = useState({});
   const [totalValue, setTotalValue] = useState(0);
+  const [typeNum, setTypeNum] = useState(1)
+  const [selectedTab, setSelectedTab] = useState("patients");
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchAvg = async () => {
     try {
-      const response = await get(`/customerengagements/customerengagements/1/${month}/average`);
+      const response = await get(`/customerengagements/customerengagements/${typeNum}/${month}/average`);
       const data = response
       console.log(data)
       convertAvg(data);
@@ -40,8 +43,9 @@ function CustomerEngagement() {
   };
 
   const fetchData = async () => {
+
     try {
-      const response = await get(`/customerengagements/customerengagements/1/${month}?pageIndex=${currentPage}&pageSize=${PER_PAGE}`);
+      const response = await get(`/customerengagements/customerengagements/${typeNum}/${month}?pageIndex=${currentPage}&pageSize=${PER_PAGE}`);
       const data = response
       console.log(data)
       setCustomerEngagements(data.data);
@@ -49,6 +53,7 @@ function CustomerEngagement() {
     } catch (e) {
       console.log(e);
     }
+
   };
 
   const convertAvg = (responseData) => {
@@ -65,10 +70,11 @@ function CustomerEngagement() {
   };
 
   useEffect(() => {
+
     fetchData();
     fetchAvg();
     console.log(totalValue)
-  }, [month, currentPage]);
+  }, [month, currentPage, typeNum]);
 
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
@@ -80,10 +86,38 @@ function CustomerEngagement() {
     setMonth(event.target.value);
   };
 
+  const handleTypeChange = () => {
+    if (selectedTab === "patients") {
+      setCurrentPage(1);
+      setTypeNum(1);
+    } else {
+      setCurrentPage(1);
+      setTypeNum(2);
+    }
+  }
+
+  useEffect(() => {
+    handleTypeChange();
+  }, [selectedTab]);
   return (
     <div className="w-100">
       <div className="m-t-20">...</div>
       <div className="m-t-20">Customer Engagement</div>
+      <div className="tabs m-t-20 bold-text">
+        <div
+          className={`tab-item ${selectedTab === "patients" ? "active" : ""}`}
+          onClick={() => setSelectedTab("patients")}
+        >
+          Patients
+        </div>
+
+        <div
+          className={`tab-item ${selectedTab === "colleagues" ? "active" : ""}`}
+          onClick={() => setSelectedTab("colleagues")}
+        >
+          Colleagues
+        </div>
+      </div>
       <div className="flex gap-16">
         {/* Dropdown for month selection */}
 
@@ -117,21 +151,23 @@ function CustomerEngagement() {
             </PieChart>
           </div>
         </div>
-
-        {/* Engagement list section */}
         <div>
-          <div className="customer-engagements">
-            {customerEngagements.map((engagement) => (
-              <div key={engagement.id}>
-                <span className="created-at">
-                  {new Date(engagement.createdAt).toLocaleDateString()}
-                </span>
-                <div className="engagement-details m-t-20">
-                  <span className="comment-text">{engagement.comments}</span>
+          {/* Engagement list section */}
+          {isLoading ? <div>Loading...</div> : <div>
+            <div className="customer-engagements">
+              {customerEngagements.map((engagement) => (
+                <div key={engagement.id}>
+                  <span className="created-at">
+                    {new Date(engagement.createdAt).toLocaleDateString()}
+                  </span>
+                  <div className="engagement-details m-t-20">
+                    <span className="comment-text">{engagement.comments}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </div>}
+
 
           {/* Pagination section */}
           <div className="pagination flex space-between">
