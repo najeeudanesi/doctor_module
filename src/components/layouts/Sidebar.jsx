@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import EdsgLogo from "../../assets/images/SidebarLogo.png";
@@ -9,9 +9,9 @@ import aiLogo from "../../assets/images/Greezone-ai.png"; // import aiLogo
 // import { logout } from "../../utility/auth";
 
 const Sidebar = ({ history, menuList }) => {
-  const {
-    location: { pathname },
-  } = history;
+  const location = useLocation(); // Use useLocation hook to access the location
+
+  const { pathname } = location;
 
   return (
     <nav className="page-sidebar">
