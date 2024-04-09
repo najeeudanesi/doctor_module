@@ -10,33 +10,22 @@ import { Toaster } from 'react-hot-toast';
 
 import { MyProvider } from './contexts';
 import PageLayout from './components/layouts/PageLayout';
+import NotFound from './components/pages/NotFound';
 
-
-
-
+// Define a component for the 404 page
 
 function App() {
-
-
   return (
     <MyProvider>
       <div>
         <BrowserRouter>
-
           <Routes>
-            <Route path="/" Component={Homepage} />
-            <Route path="/*" Component={PageLayout} />
-
-            {/* <Route
-              path="/doctor/*"
-              element={
-                <ProtectedRoute component={UserPortal} />}
-            /> */}
-            <Route render={() => <h1>Error 404. Page not found.</h1>} />
+            <Route path="/" element={<Homepage />} />
+            <Route path="/doctor/*" element={<PageLayout />} />
+            {/* Render the NotFound component for unmatched routes */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
-
-
-        </ BrowserRouter>
+        </BrowserRouter>
         <Toaster position='top-right' />
       </div>
     </MyProvider>

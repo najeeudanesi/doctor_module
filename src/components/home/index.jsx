@@ -40,7 +40,7 @@ const Home = (props) => {
         localStorage.setItem('name', data.firstName + " " + data.lastName)
         localStorage.setItem('role', data.role)
         localStorage.setItem('USER_INFO', JSON.stringify(data));
-        navigate('/dashboard');
+        navigate('/doctor/dashboard');
       }
     } catch (error) {
       localStorage.removeItem('USER_INFO');

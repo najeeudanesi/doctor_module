@@ -21,12 +21,7 @@ const Sidebar = ({ history, menuList }) => {
 
       <div className="sidebar-menu">
         <ul className="menu-items">
-          {/* <li>
-            <AiOutlineHome className="icon" />
-            <Link onClick={logout} className="has-sub-menu">
-              <span className="title">Home</span>
-            </Link>
-          </li> */}
+
           {menuList &&
             menuList.map((item) => (
               <MenuItem props={item} pathname={pathname} key={item.title} />

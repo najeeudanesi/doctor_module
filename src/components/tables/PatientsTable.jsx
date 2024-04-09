@@ -26,7 +26,7 @@ function PatientsTable({ data }) {
 
           <tbody className="white-bg view-det-pane">
             {data.map((row, index) => (
-              <tr key={index} className="pointer" onClick={() => navigate(`/patient-details/${row.id}`)}>
+              <tr key={index} className="pointer" onClick={() => navigate(`/doctor/patient-details/${row.id}`)}>
                 <td>{index + 1}</td>
                 <td>{row.firstName}</td>
                 <td>{row.lastName}</td>

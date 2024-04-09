@@ -7,8 +7,8 @@ import { RiBarChartFill, RiHeartPulseLine, RiHotelBedFill, RiHealthBookLine } fr
 // import { CgUserList } from 'react-icons/cg';
 
 export default [
-    { title: 'Dashboard', href: '/dashboard', icon: <RiBarChartFill className="icon" /> },
-    { title: 'Patient', href: '/patients', icon: <RiHealthBookLine className="icon" /> },
-    { title: 'Facility', href: '/facility', icon: <RiHotelBedFill className="icon" /> },
-    { title: 'Customer Engagement', href: '/customer-engagement', icon: <RiHeartPulseLine className="icon" /> },
+    { title: 'Dashboard', href: '/doctor/dashboard', icon: <RiBarChartFill className="icon" /> },
+    { title: 'Patient', href: '/doctor/patients', icon: <RiHealthBookLine className="icon" /> },
+    { title: 'Facility', href: '/doctor/facility', icon: <RiHotelBedFill className="icon" /> },
+    { title: 'Customer Engagement', href: '/doctor/customer-engagement', icon: <RiHeartPulseLine className="icon" /> },
 ];
