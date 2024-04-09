@@ -25,7 +25,7 @@ function App() {
 
           <Routes>
             <Route path="/" Component={Homepage} />
-            <Route path="*" Component={PageLayout} />
+            <Route path="/*" Component={PageLayout} />
 
             {/* <Route
               path="/doctor/*"
