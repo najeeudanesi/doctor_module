@@ -5,7 +5,7 @@ function TextArea(props) {
     <div className="flex flex-v-center m-t-20">
       <div className="label-textarea">{props.label}</div>
       <textarea
-        className=""
+        className="text-area-input-field"
         type={props.type}
         placeholder={props.placeholder}
         name={props.name}

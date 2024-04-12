@@ -70,7 +70,7 @@ function PatientDetails() {
           <>
             {patient ? (<>  <div className="m-t-80"><h1>{patient?.firstName + " " + patient?.lastName}</h1></div>
 
-              <div className="tabs m-t-20 bold-text">
+              <div className="tabs flex space-between m-t-20 bold-text w-100">
                 <div
                   className={`tab-item ${selectedTab === "personal" ? "active" : ""}`}
                   onClick={() => setSelectedTab("personal")}

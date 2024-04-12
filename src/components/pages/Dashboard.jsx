@@ -168,10 +168,10 @@ function Dashboard() {
     <div className="w-100 m-t-80">
       {loading ? (<div className="loader">loading ...</div>) : (
         <div className="m-t-20">
-          <div className="flex">
+          <div className="flex w-100 gap-8 space-between">
             {" "}
             {stats.map((stat, index) => (
-              <div className="m-r-20" key={index}>
+              <div className="w-20" key={index}>
                 <StatCard data={stat} number={summary[index]} icon={stat.icon} />
               </div>
             ))}

@@ -189,9 +189,9 @@ function Patients() {
       {!loading ? (<div className="m-t-20">
         <h3>Patients Management</h3>
         <div>
-          <div className="flex">
+          <div className="flex w-100 space-between gap-8">
             {stats.map((stat, index) => (
-              <div className="m-r-20" key={stat.id}>
+              <div className="w-20" key={stat.id}>
                 <StatCard data={stat} number={summary[index]} icon={stat.icon} />
               </div>
             ))}

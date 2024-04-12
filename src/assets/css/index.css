@@ -67,7 +67,6 @@
   background-color: white;
   top: 245px;
   border-radius: 5px;
-  width: 240px;
   box-shadow: 1px 4px 11px 0px #cebde440;
   padding: 15px;
 
@@ -302,6 +301,7 @@
 
 .secondary-btn {
   border-radius: 4px;
+  height: 10px;
   border: 1px solid #3c7e2d;
   background: #e8ffda;
   box-shadow: 1px 4px 11px 0px rgba(206, 189, 228, 0.25);
@@ -505,7 +505,7 @@
 
 .text-area-input-field {
   width: 100%;
-  height: 120px;
+  height: 150px;
   top: 181px;
   left: -300px;
   border-radius: 4px;
@@ -824,6 +824,10 @@ section {
 
 .max-w-400 {
   max-width: 400px !important;
+}
+
+.max-w-600 {
+  max-width: 600px !important;
 }
 
 .col-1,
@@ -1163,6 +1167,12 @@ div.bottom ul {
   width: 50% !important;
 }
 
+.w-10 {
+  width: 10% !important;
+}
+.w-15 {
+  width: 15% !important;
+}
 .w-20 {
   width: 20% !important;
 }
@@ -1231,7 +1241,7 @@ div.bottom ul {
 .label {
   background-color: #ebffe6;
   padding: 10px;
-  width: 200px;
+  width: 250px;
   border: 1px solid #017d34;
 }
 
@@ -1273,10 +1283,10 @@ textarea {
 }
 
 .label-textarea {
-  height: 200px;
+  height: 150px;
   background-color: #ebffe6;
   padding: 10px;
-  width: 200px;
+  width: 250px;
   border: 1px solid #017d34;
 }
 
@@ -1443,10 +1453,9 @@ textarea {
 .tabs {
   border-bottom: 1px solid #b1b1b1;
   border-top: 1px solid #b1b1b1;
-  width: 100%;
   margin-bottom: 20px;
   align-items: center;
-  display: flex;
+  font-size: small;
 }
 
 .tab-item {
