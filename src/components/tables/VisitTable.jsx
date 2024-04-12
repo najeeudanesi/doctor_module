@@ -8,11 +8,12 @@ function VisitTable({ data, nurseName, doctorName }) {
                     <thead className="border-top-none">
                         <tr className="border-top-none">
                             <th>Date</th>
-                            <th>Age</th>
+
                             <th>weight</th>
                             <th>temp</th>
                             <th>Height</th>
                             <th>Heart</th>
+                            <th>Respiratory</th>
                             <th>Blood Pressure</th>
                             <th>Additional Notes</th>
                             <th>Administered Nurse</th>
@@ -23,12 +24,13 @@ function VisitTable({ data, nurseName, doctorName }) {
                     <tbody className="white-bg view-det-pane">
                         {data.map((row) => (
                             <tr key={row?.visitId}>
-                                <td>{row?.datOfVisit}</td>
-                                <td>{row?.age}</td>
+                                <td>{new Date(row?.dateOfVisit).toLocaleDateString()}</td>
+
                                 <td>{row?.weight}</td>
                                 <td>{row?.temperature}</td>
                                 <td>{row?.height}</td>
                                 <td>{row?.heartPulse}</td>
+                                <td>{row?.respiratory}</td>
                                 <td>{row?.bloodPressure}</td>
                                 <td>{row?.notes}</td>
                                 <td>{nurseName}</td>

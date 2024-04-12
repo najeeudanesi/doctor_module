@@ -7,21 +7,25 @@ function FacilityCard({ data }) {
       {data?.isOccupied === "Occupied" ? (
         <div>
           <div className="card">
+
             <RiHotelBedFill size={98} className="text-green" />
             <p>{data?.facilityId}</p>
+            <div>{data?.bedName}</div>
           </div>
           <div className="comment-btn w-80">
-            <p className="text-center p-10">{data?.patientName}</p>
+            <p className="text-center p-10">{data?.patientName || "Patient Name"}</p>
           </div>
         </div>
       ) : (
         <div>
           <div className="card gray-bg">
+
             <RiHotelBedFill size={98} className="text-gray" />
             <p>{data?.facilityId}</p>
+            <div>{data?.bedName}</div>
           </div>
           <button className="comment-btn w-80" disabled>
-            <p className="text-center p-10">{data?.patientName}</p>
+            <p className="text-center p-10">{data?.isOccupied}</p>
           </button>
         </div>
       )}

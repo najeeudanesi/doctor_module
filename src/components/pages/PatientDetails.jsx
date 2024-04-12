@@ -6,6 +6,8 @@ import MedicalRecord from "./Patient/MedicalRecord";
 import { useParams } from "react-router-dom"; // Import useParams
 import { get } from "../../utility/fetch";
 import VisitTable from "../tables/VisitTable";
+import ImmunizationTable from "../tables/ImmunizationTable";
+import Treatments from "./Patient/Treatments";
 
 function PatientDetails() {
   const [selectedTab, setSelectedTab] = useState("personal");
@@ -47,6 +49,13 @@ function PatientDetails() {
       case "visits": {
         return <VisitTable data={patient?.visits} nurseName={patient?.nurseName} doctorName={patient?.doctorName} />;
       }
+      case "immunization": {
+        return <ImmunizationTable data={patient?.immunizations} />;
+      }
+      case "treatment": {
+        return < Treatments data={patient?.treatments} />;
+      }
+
 
       default:
         return null;
@@ -59,7 +68,7 @@ function PatientDetails() {
         {loading ? (<div className="m-t-40"><h1>Loading......</h1></div>) : (
 
           <>
-            {patient ? (<>  <div className="m-t-80">PatientDetails</div>
+            {patient ? (<>  <div className="m-t-80"><h1>{patient?.firstName + " " + patient?.lastName}</h1></div>
 
               <div className="tabs m-t-20 bold-text">
                 <div

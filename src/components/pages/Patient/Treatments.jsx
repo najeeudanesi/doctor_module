@@ -1,9 +1,11 @@
 import React from "react";
+import TreatmentTable from "../../tables/TreatmentTable";
 
-function Treatments() {
+function Treatments({ data }) {
   return (
-    <div>
-      <div className="m-t-40">Treatments</div>
+    <div className="w-100">
+      <div className="flex flex-h-end w-75 gap-10"><button className="rounded-btn">+ Refer Patient</button><button className="rounded-btn">+ Add Treatment</button></div>
+      <TreatmentTable data={data} />
     </div>
   );
 }

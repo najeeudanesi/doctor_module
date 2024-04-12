@@ -64,11 +64,11 @@ const Home = (props) => {
   return (
     <div className="w-100">
       <div className="banner">
-        <div className="log flex-h-center w-100">
+        <div className="log flex-h-end w-100">
           <div>
             <div className='flex flex-v-center w-100 m-l-20'>
               <div className='margin-lg'>
-                <div className='m-l-20'><img src={icon} alt='' width={26} height={26} /></div>
+                <div className='m-l-20'><img src={icon} alt='' width={26} height={26} className='m-l-20' /></div>
                 <div> <img src={greenz} alt='' width={100} height={26} /></div>
               </div>
             </div>

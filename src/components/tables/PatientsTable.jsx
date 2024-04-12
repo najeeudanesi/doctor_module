@@ -37,7 +37,7 @@ function PatientsTable({ data }) {
                 <td>{row.visits[0].heartPulse}</td>
                 <td>{row.visits[0].respiratory}</td>
                 <td>{row.assignedNurse}</td>
-                <td>{row.dateCreated}</td>
+                <td>{new Date(row.createdAt).toLocaleDateString()}</td>
               </tr>
             ))}
           </tbody>

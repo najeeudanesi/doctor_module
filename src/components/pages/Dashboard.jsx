@@ -61,7 +61,7 @@ function Dashboard() {
   const getAssigned = async () => {
     try {
       const data = await get(
-        `/dashboard/assignedtodoctor`, { status: 1 }
+        `/dashboard/assignedtodoctor`, { status: 2 }
       )
       setAssignedPatients(data)
       console.log(data)

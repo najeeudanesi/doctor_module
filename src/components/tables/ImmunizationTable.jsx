@@ -23,15 +23,15 @@ function ImmunizationTable({ data }) {
                     <tbody className="white-bg view-det-pane">
                         {data.map((row) => (
                             <tr key={row.id}>
-                                <td>{row.patientId}</td>
-                                <td>{row.firstName}</td>
-                                <td>{row.lastName}</td>
-                                <td>{row.age}</td>
-                                <td>{row.weight}</td>
-                                <td>{row.temperature}</td>
-                                <td>{row.height}</td>
-                                <td>{row.heart}</td>
-                                <td>{row.resp}</td>
+                                <td>{new Date(row?.dateGiven).toLocaleDateString()}</td>
+                                <td>{row?.vaccine}</td>
+                                <td>{row?.quantity}</td>
+                                <td>{row?.age}</td>
+                                <td>{row?.weight}</td>
+                                <td>{row?.temperature}</td>
+                                <td>{row?.vaccineBrand}</td>
+                                <td>{row?.batchId}</td>
+                                <td>{row?.immunizationDocuments}</td>
 
                             </tr>
                         ))}
