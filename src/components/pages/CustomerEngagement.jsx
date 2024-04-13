@@ -9,6 +9,7 @@ import {
   Legend,
 } from "recharts";
 import { get } from "../../utility/fetch";
+import { RiCircleFill } from "react-icons/ri";
 const PER_PAGE = 4; // Number of items per page
 
 const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
@@ -25,7 +26,7 @@ function CustomerEngagement() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [month, setMonth] = useState("march");
-  const [avg, setAvg] = useState({});
+  const [avg, setAvg] = useState([]);
   const [totalValue, setTotalValue] = useState(0);
   const [typeNum, setTypeNum] = useState(1)
   const [selectedTab, setSelectedTab] = useState("patients");
@@ -65,6 +66,7 @@ function CustomerEngagement() {
       }));
 
     setAvg(logData);
+    console.log("avg", logData);
     const total = logData.reduce((acc, entry) => acc + entry.value, 0);
     setTotalValue(total);
   };
@@ -99,11 +101,27 @@ function CustomerEngagement() {
   useEffect(() => {
     handleTypeChange();
   }, [selectedTab]);
+
+  const CustomizedLegend = ({ payload }) => (
+    <div className="flex flex-v-center">
+      {payload.map((entry, index) => (
+        <div key={`legend-${index}`} className="flex flex-col flex-v-center  gap-4">
+          <h2>{avg[index].value + "%"} </h2>
+          <div className="flex gap-4"><RiCircleFill style={{ color: entry.color }} />  <span style={{ color: entry.color }}>{entry.value}</span></div>
+
+          {/* Add your custom comments here */}
+
+        </div>
+      ))}
+    </div>
+  );
+
+
   return (
     <div className="w-100">
       <div className="m-t-20">...</div>
       <div className="m-t-20"><h3>Customer Engagement</h3></div>
-      <div className="tabs m-t-20 bold-text">
+      <div className="tabs flex m-t-20 bold-text">
         <div
           className={`tab-item ${selectedTab === "patients" ? "active" : ""}`}
           onClick={() => setSelectedTab("patients")}
@@ -126,20 +144,25 @@ function CustomerEngagement() {
         <div>
 
           <div className="container">
-            <div className="dropdown">
-              <select value={month} onChange={handleMonthChange}>
-                {months.map((monthOption) => (
-                  <option key={monthOption} value={monthOption}>
-                    {monthOption}
-                  </option>
-                ))}
-              </select>
+            <div className="flex flex-v-center w-100 space-between border-bottom p-b-20">
+              <div className="bold-text">{selectedTab + " evaluation"}</div>
+              <div className="dropdown">
+                <select value={month} onChange={handleMonthChange}>
+                  {months.map((monthOption) => (
+                    <option key={monthOption} value={monthOption}>
+                      {monthOption}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
+
             <PieChart width={300} height={300}>
               <Legend
                 iconType="circle"
                 layout="horizontal"
                 verticalAlign="bottom"
+                content={<CustomizedLegend />}
               />
               <Pie data={avg} cx={120} cy={100} innerRadius={60} outerRadius={75} fill="#8884d8" paddingAngle={0} dataKey="value">
                 {data.map((entry, index) => (
@@ -148,7 +171,9 @@ function CustomerEngagement() {
                 <Label className="bold-text" fontSize={24} value={totalValue} position="center" />
               </Pie>
 
+
             </PieChart>
+
           </div>
         </div>
         <div>
@@ -181,7 +206,7 @@ function CustomerEngagement() {
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
               >
-                {"<<"}
+                {"Previous"}
               </button>
               {/* Page numbers */}
               {Array.from({ length: totalPages > 3 ? 3 : totalPages }, (_, i) => (
@@ -201,7 +226,7 @@ function CustomerEngagement() {
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
               >
-                {">>"}
+                {"Next"}
               </button>
             </div>
           </div>
