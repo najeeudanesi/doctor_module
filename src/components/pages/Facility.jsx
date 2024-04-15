@@ -6,6 +6,9 @@ function Facility() {
   // Sample data with a patient's name
   const [selectedTab, setSelectedTab] = useState("beds");
   const [newData, setNewData] = useState([])
+  const [available, setAvailable] = useState(0);
+  const [occupied, setOccupied] = useState(0);
+
   const data = [
     {
       patientName: "William Humphrey",
@@ -28,14 +31,41 @@ function Facility() {
 
   }
 
+  const fetchOccupied = async () => {
+    try {
+      const response = await get(`/facilities/Occupied-Beds-Count`)
+
+      setOccupied(response.data)
+      console.log("occupied", response)
+
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  const fetchAvailable = async () => {
+    try {
+      const response = await get(`/facilities/Available-Beds-Count`)
+
+      setAvailable(response.data)
+
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+
+
   useEffect(() => {
     fetchData();
+    // fetchAvailable();
+    // fetchOccupied();
   }, [])
 
   const renderTabContent = () => {
     switch (selectedTab) {
       case "beds":
         return (<div>
+          {/* <div className="flex gap-10 m-t-10"> <h4>Occupied: {occupied}</h4> <h4>Available: {available}</h4></div> */}
           {newData ? (<div className="grid gap-16 m-t-20">
             {newData.map((patient, index) => (
               <FacilityCard key={index} data={patient} />
@@ -59,7 +89,7 @@ function Facility() {
       <div className="m-t-20">...</div>
       <div className="m-t-20 bold-text">Facility | Bed Management</div>
 
-      <div className="tabs m-t-20 bold-text">
+      <div className="tabs flex m-t-20 bold-text">
         <div
           className={`tab-item ${selectedTab === "beds" ? "active" : ""}`}
           onClick={() => setSelectedTab("beds")}

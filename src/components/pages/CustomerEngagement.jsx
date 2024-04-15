@@ -106,7 +106,7 @@ function CustomerEngagement() {
     <div className="flex flex-v-center">
       {payload.map((entry, index) => (
         <div key={`legend-${index}`} className="flex flex-col flex-v-center  gap-4">
-          <h2>{avg[index].value + "%"} </h2>
+          <h2>{(avg[index]?.value || 0) + "%"} </h2>
           <div className="flex gap-4"><RiCircleFill style={{ color: entry.color }} />  <span style={{ color: entry.color }}>{entry.value}</span></div>
 
           {/* Add your custom comments here */}

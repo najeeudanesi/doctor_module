@@ -8,7 +8,6 @@ function TreatmentTable({ data }) {
                     <thead className="border-top-none">
                         <tr className="border-top-none">
                             <th>Date</th>
-
                             <th>Age</th>
                             <th>weight</th>
                             <th>Temp</th>
@@ -25,13 +24,15 @@ function TreatmentTable({ data }) {
                             <tr key={row?.visitId}>
                                 <td>{new Date(row?.dateOfVisit).toLocaleDateString()}</td>
 
-                                <td>{row?.weight}</td>
-                                <td>{row?.temperature}</td>
-                                <td>{row?.height}</td>
-                                <td>{row?.heartPulse}</td>
+                                <td>{row?.age}</td>
+                                <td>{row?.weight}kg</td>
+                                <td>{row?.temperature}C</td>
+                                <td>{row?.nurse}</td>
                                 <td>{row?.respiratory}</td>
-                                <td>{row?.bloodPressure}</td>
-                                <td>{row?.notes}</td>
+                                <td>{row?.diagnosis}</td>
+                                <td><ul>{row?.medications.map((medication, index) => (
+                                    <li key={index}>{medication}</li>
+                                ))}</ul></td>
 
 
                             </tr>

@@ -186,10 +186,10 @@ function Patients() {
   return (
     <div className="w-100 m-t-80">
 
-      {!loading ? (<div className="m-t-20">
+      {!loading ? (<div className="">
         <h3>Patients Management</h3>
         <div>
-          <div className="flex w-100 space-between gap-8">
+          <div className="flex w-100 space-between gap-8 m-t-20">
             {stats.map((stat, index) => (
               <div className="w-20" key={stat.id}>
                 <StatCard data={stat} number={summary[index]} icon={stat.icon} />
