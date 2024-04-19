@@ -14,6 +14,7 @@ function PatientDetails() {
   const [patient, setPatient] = useState(null);
   const [loading, setLoading] = useState(true);
   const { patientId } = useParams(); // Extract patientId from URL params
+  const [visit, setVisit] = useState(null);
 
   const getPatientDetails = async () => {
 
@@ -22,6 +23,8 @@ function PatientDetails() {
       const data = await get(`/patients/${patientId}/data`)
       setPatient(data)
       console.log(data)
+      setVisit(data?.visits?.pop())
+
     } catch (e) {
       console.log(e)
     }
@@ -53,8 +56,10 @@ function PatientDetails() {
         return <ImmunizationTable data={patient?.immunizations} />;
       }
       case "treatment": {
-        return < Treatments data={patient?.treatments} />;
+
+        return <Treatments data={patient?.treatments} visit={visit} id={patient?.id} />;
       }
+
 
 
       default:

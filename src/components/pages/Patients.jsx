@@ -197,7 +197,7 @@ function Patients() {
             ))}
           </div>
         </div>
-        <div className="flex w-100 space-between">
+        <div className="flex flex-v-center w-100 space-between">
           <div className="flex gap-7 m-t-40">
             <p>Assigned Waiting Patients</p>|
             <DatePicker
@@ -210,20 +210,20 @@ function Patients() {
             />
           </div>
 
-          <div className="flex flex-h-end  w-50 m-t-20 gap-10">
-            <div className="w-60">
+          <div className="flex flex-h-end space-between  w-50 m-t-20 gap-10 ">
+            <div className="w-50 m-r-20">
               <SearchInput type="text" onChange={handleSearchChange} value={searchText} name="searchText" />
             </div>
 
-            {/* <div className="dropdown-input w-25 ">
-            {" "}
-            <select>
-              <option value="Ward A">Ward A</option>
-              <option value="Ward B">Ward B</option>
-              <option value="Ward C">Ward C</option>
-              <option value="Ward D">Ward D</option>
-            </select>
-          </div> */}
+            <div className="dropdown-input w-25 ">
+              {" "}
+              <select>
+                <option value="">Name</option>
+                <option value="Ward B">Age</option>
+                <option value="Ward C"></option>
+                <option value="Ward D">Ward D</option>
+              </select>
+            </div>
           </div>
         </div>
 

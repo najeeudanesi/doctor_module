@@ -4,12 +4,13 @@ import ReferPatient from "../../modals/ReferPatient";
 import { useState } from "react";
 import AddTreatment from "../../modals/AddTreatment";
 
-function Treatments({ data }) {
+function Treatments({ data, visit, id }) {
   const [showModal, setShowModal] = useState(false);
   const [treatmentModal, setTreatmentModal] = useState(false);
 
   const toggleModal = () => {
     setShowModal(!showModal);
+    console.log(visit)
   }
 
   const toggleTreatmentModal = () => {
@@ -23,7 +24,7 @@ function Treatments({ data }) {
         showModal && <ReferPatient closeModal={toggleModal} />
       }
       {
-        treatmentModal && <AddTreatment closeModal={toggleTreatmentModal} />
+        treatmentModal && <AddTreatment closeModal={toggleTreatmentModal} visit={visit} id={id} />
       }
 
     </div>

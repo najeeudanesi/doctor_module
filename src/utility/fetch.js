@@ -31,6 +31,8 @@ async function fetchBackend(endpoint, method, auth, body, params) {
     }
   }
 
+
+
   return fetch(url, fetchObject)
     .then(checkHttpStatus)
     .then(parseJSON);

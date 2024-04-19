@@ -9,6 +9,7 @@ function Facility() {
   const [available, setAvailable] = useState(0);
   const [occupied, setOccupied] = useState(0);
 
+
   const data = [
     {
       patientName: "William Humphrey",
@@ -24,6 +25,8 @@ function Facility() {
       const response = await get(`/facilities/beds/assignedtodoctor`)
       console.log(response)
       setNewData(response)
+      calculateOccupied(response);
+      calculateAvailable(response);
 
     } catch (e) {
       console.log(e)
@@ -31,47 +34,41 @@ function Facility() {
 
   }
 
-  const fetchOccupied = async () => {
-    try {
-      const response = await get(`/facilities/Occupied-Beds-Count`)
-
-      setOccupied(response.data)
-      console.log("occupied", response)
-
-    } catch (e) {
-      console.log(e)
-    }
+  const calculateOccupied = (data) => {
+    const occupied = data.filter((item) => item.isOccupied === "Occupied").length
+    setOccupied(occupied)
   }
-  const fetchAvailable = async () => {
-    try {
-      const response = await get(`/facilities/Available-Beds-Count`)
 
-      setAvailable(response.data)
-
-    } catch (e) {
-      console.log(e)
-    }
+  const calculateAvailable = (data) => {
+    const available = data.filter((item) => item.isOccupied === "Vacant").length
+    setAvailable(available)
   }
+
 
 
 
   useEffect(() => {
     fetchData();
-    // fetchAvailable();
-    // fetchOccupied();
   }, [])
 
   const renderTabContent = () => {
     switch (selectedTab) {
       case "beds":
-        return (<div>
-          {/* <div className="flex gap-10 m-t-10"> <h4>Occupied: {occupied}</h4> <h4>Available: {available}</h4></div> */}
-          {newData ? (<div className="grid gap-16 m-t-20">
-            {newData.map((patient, index) => (
-              <FacilityCard key={index} data={patient} />
-            ))}
-          </div>) : (<div>null</div>)}
-        </div>
+        return (
+          <div>
+            <div className="flex gap-8 m-t-20">
+              <div className="bold-text">
+                Assigned Patients location |
+              </div>
+              <div className="flex gap-10"> <h4>Occupied: {occupied}</h4> <h4>Available: {available}</h4></div>
+            </div>
+
+            {newData ? (<div className="grid gap-16 m-t-20">
+              {newData.map((patient, index) => (
+                <FacilityCard key={index} data={patient} />
+              ))}
+            </div>) : (<div>null</div>)}
+          </div>
         );
       case "equipments":
         // Render equipment content here
@@ -121,9 +118,7 @@ function Facility() {
         </select>
       </div> */}
 
-      <div className="m-t-20 bold-text">
-        Assigned Patients location
-      </div>
+
 
       {renderTabContent()}
     </div>
