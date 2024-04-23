@@ -21,7 +21,7 @@ function Treatments({ data, visit, id }) {
       <div className="flex flex-h-end w-75 gap-10"><button className="rounded-btn" onClick={toggleModal}>+ Refer Patient</button><button className="rounded-btn" onClick={toggleTreatmentModal}>+ Add Treatment</button></div>
       <TreatmentTable patientId={id} />
       {
-        showModal && <ReferPatient closeModal={toggleModal} />
+        showModal && <ReferPatient closeModal={toggleModal} visit={visit} id={id} />
       }
       {
         treatmentModal && <AddTreatment closeModal={toggleTreatmentModal} visit={visit} id={id} />

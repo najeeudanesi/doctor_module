@@ -1,7 +1,15 @@
 import React, { useState } from "react";
+import LabsAttachment from "../modals/LabsAttachment";
 
-function LabsTable({ visit, id }) {
-    const [data, setData] = useState([]);
+function LabsTable({ data, id }) {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [attachments, setAttachments] = useState([]);
+
+    const toggleModal = () => {
+        setModalOpen(!modalOpen);
+
+    }
+
     return (
         <div className="w-100 ">
             <div className="w-100 none-flex-item m-t-40">
@@ -12,7 +20,6 @@ function LabsTable({ visit, id }) {
                             <th>Age</th>
                             <th>Diagnosis</th>
                             <th>Lab Request</th>
-
                             <th>Date Created</th>
                             <th>Attatchment</th>
 
@@ -22,20 +29,23 @@ function LabsTable({ visit, id }) {
                     <tbody className="white-bg view-det-pane">
                         {data.map((row) => (
                             <tr key={row.id}>
-
-
                                 <td>{row?.age}</td>
                                 <td>{row?.diagnosis}</td>
                                 <td>{row?.labRequest}</td>
+                                <td>{new Date(row?.createdOn).toLocaleDateString()}</td>
+                                <td><div className="rounded-btn" onClick={toggleModal}>Attachments</div></td>
 
-                                <td>{new Date(row?.dateGiven).toLocaleDateString()}</td>
-                                <td>{row?.labsDocuments}</td>
 
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+            {
+                modalOpen && (
+                    <LabsAttachment closeModal={toggleModal} data={[]} />
+                )
+            }
         </div>
     );
 }

@@ -6,39 +6,42 @@ import { post } from '../../utility/fetch';
 import toast from 'react-hot-toast';
 
 function ReferPatient({ closeModal, visit, id }) {
-    const [additionalNotes, setAdditionalNotes] = useState('');
-    const [diagnosis, setDiagnosis] = useState('');
-    const [medicationInputs, setMedicationInputs] = useState(['']); // State to hold individual medication inputs
+    const [labNotes, setLabNotes] = useState('');
+    const [labType, setLabType] = useState('');
+    const [labInputs, setLabInputs] = useState(['']); // State to hold individual lab inputs
     const [loading, setLoading] = useState(false);
+    const [diagnosis, setDiagnosis] = useState('');
+    const [labCenter, setLabCenter] = useState('');
 
-    const addMedicationInput = () => {
-        setMedicationInputs([...medicationInputs, '']);
+    const addlabInput = () => {
+        setLabInputs([...labInputs, '']);
     };
 
-    const handleMedicationChange = (index, value) => {
-        const newMedicationInputs = [...medicationInputs];
-        newMedicationInputs[index] = value;
-        setMedicationInputs(newMedicationInputs);
+    const handleLabChange = (index, value) => {
+        const newlabInputs = [...labInputs];
+        newlabInputs[index] = value;
+        setLabInputs(newlabInputs);
     };
 
-    const removeMedicationInput = (index) => {
-        const newMedicationInputs = [...medicationInputs];
-        newMedicationInputs.splice(index, 1);
-        setMedicationInputs(newMedicationInputs);
+    const removelabInput = (index) => {
+        const newlabInputs = [...labInputs];
+        newlabInputs.splice(index, 1);
+        setLabInputs(newlabInputs);
     };
 
     const referPatient = async () => {
         setLoading(true);
         const payload = {
-            dateOfVisit: visit?.dateOfVisit,
+            labCenter: labCenter,
             diagnosis: diagnosis,
-            medication: medicationInputs.filter(medication => medication.trim() !== ''), // Filter out empty medications
-            additionalNotes: additionalNotes,
+            labType: labType,
+            labRequests: labInputs.filter(lab => lab.trim() !== ''), // Filter out empty labs
+            labNote: labNotes,
         }
         console.log(payload)
         try {
-            await post(`/patients/${id}/visit/${visit?.id}/referPatientprescription`, payload);
-            toast.success('Treatment added successfully');
+            await post(`/patients/${id}/visit/${visit?.id}/labrequest`, payload);
+            toast.success('lab request added successfully');
             closeModal();
 
 
@@ -55,25 +58,29 @@ function ReferPatient({ closeModal, visit, id }) {
             <div className="modal-box max-w-600">
                 <div className="p-40">
                     <h3 className="bold-text">Refer Patient</h3>
-                    {medicationInputs.map((medication, index) => (
+                    <InputField label="Lab Center" name="labCenter" onChange={(e) => setLabCenter(e.target.value)} />
+                    <InputField label="Lab Type" name="labType" onChange={(e) => setLabType(e.target.value)} />
+                    {labInputs.map((lab, index) => (
                         <div key={index} className='flex flex-v-center space-between'>
                             <div className='w-80'>
                                 <InputField
-                                    label={`Medication ${index + 1}`}
-                                    value={medication}
-                                    onChange={(e) => handleMedicationChange(index, e.target.value)}
+                                    label={`lab ${index + 1}`}
+                                    value={lab}
+                                    onChange={(e) => handleLabChange(index, e.target.value)}
                                 />
                             </div>
                             <div className='w-10 m-t-10'>
-                                <button className='secondary-btn-no-h p-10 bold-text pointer' onClick={() => removeMedicationInput(index)}>
+                                <button className='secondary-btn-no-h p-10 bold-text pointer' onClick={() => removelabInput(index)}>
                                     <RiCloseFill />
                                 </button>
                             </div>
                         </div>
                     ))}
-                    <button className='text-green secondary-btn m-t-20 pointer' onClick={addMedicationInput}>Add Medication</button>
-                    {/* <TextArea label="Patient Diagnosis" name="diagnosis" onChange={(e) => setDiagnosis(e.target.value)} /> */}
-                    <TextArea label="Additional Notes" name="additionalNotes" onChange={(e) => setAdditionalNotes(e.target.value)} />
+                    <button className='text-green secondary-btn m-t-20 pointer' onClick={addlabInput}>+ Add Lab Request</button>
+
+
+                    <TextArea label="Lab Notes" name="labNotes" onChange={(e) => setLabNotes(e.target.value)} />
+                    <TextArea label="Diagnosis" name="diagnosis" onChange={(e) => setDiagnosis(e.target.value)} />
                     <button className="btn m-t-20 w-100" onClick={(() => referPatient())} disabled={loading}>Refer Patient</button>
                 </div>
             </div>

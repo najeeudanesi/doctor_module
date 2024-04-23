@@ -23,7 +23,7 @@ function VisitTable({ data, nurseName, doctorName }) {
 
                     <tbody className="white-bg view-det-pane">
                         {data.map((row) => (
-                            <tr key={row?.visitId}>
+                            <tr key={row?.id}>
                                 <td>{new Date(row?.dateOfVisit).toLocaleDateString()}</td>
 
                                 <td>{row?.weight}</td>
