@@ -54,6 +54,7 @@ function AddTreatment({ closeModal, visit, id }) {
             <RiCloseFill className='close-btn pointer' onClick={closeModal} />
             <div className="modal-box max-w-600">
                 <div className="p-40">
+                    <h3 className="bold-text">Add Treatment</h3>
                     {medicationInputs.map((medication, index) => (
                         <div key={index} className='flex flex-v-center space-between'>
                             <div className='w-80'>
@@ -63,12 +64,14 @@ function AddTreatment({ closeModal, visit, id }) {
                                     onChange={(e) => handleMedicationChange(index, e.target.value)}
                                 />
                             </div>
-                            <div className='w-10'>
-                                <button className='w-100 secondary-btn' onClick={() => removeMedicationInput(index)}>-</button>
+                            <div className='w-10 m-t-10'>
+                                <button className='secondary-btn-no-h p-10 bold-text pointer' onClick={() => removeMedicationInput(index)}>
+                                    <RiCloseFill />
+                                </button>
                             </div>
                         </div>
                     ))}
-                    <button className='btn secondary-btn m-t-20' onClick={addMedicationInput}>Add Medication</button>
+                    <button className='text-green secondary-btn m-t-20 pointer' onClick={addMedicationInput}>Add Medication</button>
                     <TextArea label="Patient Diagnosis" name="diagnosis" onChange={(e) => setDiagnosis(e.target.value)} />
                     <TextArea label="Add Care Plan" name="carePlan" onChange={(e) => setCarePlan(e.target.value)} />
                     <button className="btn m-t-20 w-100" onClick={(() => addTreatment())} disabled={loading}>Add Treatment</button>

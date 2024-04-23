@@ -1,10 +1,11 @@
 import React from "react";
+import LabsTable from "../../tables/LabsTble";
 
-function Labs() {
+function Labs({ visit, id }) {
   return (
     <div>
-      {" "}
-      <div className="m-t-40">Labs</div>
+
+      <LabsTable data={visit} id={id} />
     </div>
   );
 }

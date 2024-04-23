@@ -301,13 +301,18 @@
 
 .secondary-btn {
   border-radius: 4px;
-  height: 10px;
   border: 1px solid #3c7e2d;
   background: #e8ffda;
   box-shadow: 1px 4px 11px 0px rgba(206, 189, 228, 0.25);
   height: 55px;
 }
 
+.secondary-btn-no-h {
+  border-radius: 4px;
+  border: 1px solid #3c7e2d;
+  background: #e8ffda;
+  box-shadow: 1px 4px 11px 0px rgba(206, 189, 228, 0.25);
+}
 .collapse-btn:active {
   color: white;
   background-color: #3c7e2d;

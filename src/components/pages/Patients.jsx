@@ -211,11 +211,11 @@ function Patients() {
           </div>
 
           <div className="flex flex-h-end space-between  w-50 m-t-20 gap-10 ">
-            <div className="w-50 m-r-20">
+            <div className="w-80">
               <SearchInput type="text" onChange={handleSearchChange} value={searchText} name="searchText" />
             </div>
 
-            <div className="dropdown-input w-25 ">
+            {/* <div className="dropdown-input w-25 ">
               {" "}
               <select>
                 <option value="">Name</option>
@@ -223,7 +223,7 @@ function Patients() {
                 <option value="Ward C"></option>
                 <option value="Ward D">Ward D</option>
               </select>
-            </div>
+            </div> */}
           </div>
         </div>
 

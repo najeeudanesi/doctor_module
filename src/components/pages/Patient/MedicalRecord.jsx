@@ -8,8 +8,10 @@ function MedicalRecord({ data }) {
   const [selectedTab, setSelectedTab] = useState("");
   const [medicalRecords, setMedicalRecords] = useState({});
   const [medicalTypes, setMedicalTypes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getMedicalTypes = async () => {
+    setLoading(true);
     try {
       const data = await get("/Patients/getAllMedicalTypes");
       setMedicalTypes(data);
@@ -17,6 +19,7 @@ function MedicalRecord({ data }) {
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -34,13 +37,19 @@ function MedicalRecord({ data }) {
     const initialRecords = {};
     medicalTypes.forEach((type) => {
       const recordsOfType = data.filter((record) => record.medicalRecordType === type.index);
-      initialRecords[type.index] = recordsOfType.map(record => ({
-        name: record.name || "",
-        comment: record.comment || ""
-      }));
+      if (recordsOfType.length === 0) {
+        // Add an empty record if no records are found
+        initialRecords[type.index] = [{ name: "", comment: "" }];
+      } else {
+        initialRecords[type.index] = recordsOfType.map(record => ({
+          name: record.name || "",
+          comment: record.comment || ""
+        }));
+      }
     });
     setMedicalRecords(initialRecords);
   };
+
 
 
 
@@ -69,70 +78,77 @@ function MedicalRecord({ data }) {
 
   return (
     <div>
-      <div className="m-t-40">Medical Record</div>
-      {/* Render tabs */}
-      <div className="flex">
-        <div className="m-r-80">
-          {medicalTypes &&
-            medicalTypes.map((type) => (
-              <div
-                key={type.index}
-                className={`pointer m-t-20 ${selectedTab === type.index ? "pilled bold-text" : ""
-                  }`}
-                onClick={() => setSelectedTab(type.index)}
-              >
-                {type.value}
+      {
+        loading ? <div>Loading...</div> : (
+          <div>
+            <div className="m-t-40 bold-text">Medical Records</div>
+
+            <div className="flex m-t-20">
+              <div className="m-r-80">
+                {medicalTypes &&
+                  medicalTypes.map((type) => (
+                    <div
+                      key={type.index}
+                      className={`pointer m-t-20 ${selectedTab === type.index ? "pilled bold-text" : ""
+                        }`}
+                      onClick={() => setSelectedTab(type.index)}
+                    >
+                      {type.value}
+                    </div>
+                  ))}
               </div>
-            ))}
-        </div>
-        {/* Render content based on the selected tab */}
-        <div>
-          {(selectedTab && medicalTypes) &&
-            medicalRecords[selectedTab]?.map((record, index) => (
-              <div key={index}>
-                <InputField
-                  label={`${medicalTypes[selectedTab]?.value}`}
-                  type="text"
-                  placeholder={`${medicalTypes[selectedTab]?.value}`}
-                  value={record.name}
-                  onChange={(e) =>
-                    handleInputChange(
-                      selectedTab,
-                      index,
-                      "name",
-                      e.target.value
-                    )
-                  }
-                />
-                <TextArea
-                  label="Comment"
-                  type="text"
-                  placeholder="Comment"
-                  value={record.comment}
-                  onChange={(e) =>
-                    handleInputChange(
-                      selectedTab,
-                      index,
-                      "comment",
-                      e.target.value
-                    )
-                  }
-                />
+
+              <div>
+                {(selectedTab && medicalTypes) &&
+                  medicalRecords[selectedTab]?.map((record, index) => (
+                    <div key={index}>
+                      <InputField
+                        label={`${medicalTypes[selectedTab]?.value}`}
+                        type="text"
+                        placeholder={`${medicalTypes[selectedTab]?.value}`}
+                        value={record.name}
+                        onChange={(e) =>
+                          handleInputChange(
+                            selectedTab,
+                            index,
+                            "name",
+                            e.target.value
+                          )
+                        }
+                      />
+                      <TextArea
+                        label="Comment"
+                        type="text"
+                        placeholder="Comment"
+                        value={record.comment}
+                        onChange={(e) =>
+                          handleInputChange(
+                            selectedTab,
+                            index,
+                            "comment",
+                            e.target.value
+                          )
+                        }
+                      />
+                    </div>
+                  ))}
+                <div className="w-100 flex flex-h-end">
+                  <button
+                    className="rounded-btn m-t-20"
+                    onClick={() => handleAddField(selectedTab)}
+                  >
+                    Add {medicalTypes[selectedTab]?.value}
+                  </button>
+                </div>
+                <button className="btn w-100 m-t-20" onClick={handleContinue}>
+                  Continue
+                </button>
               </div>
-            ))}
-          <div className="w-100 flex flex-h-end">
-            <button
-              className="rounded-btn m-t-20"
-              onClick={() => handleAddField(selectedTab)}
-            >
-              Add {medicalTypes[selectedTab]?.value}
-            </button>
+            </div>
           </div>
-          {/* <button className="btn w-100 m-t-20" onClick={handleContinue}>
-            Continue
-          </button> */}
-        </div>
-      </div>
+        )
+      }
+
     </div>
   );
 }

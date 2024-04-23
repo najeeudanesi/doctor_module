@@ -8,6 +8,7 @@ import { get } from "../../utility/fetch";
 import VisitTable from "../tables/VisitTable";
 import ImmunizationTable from "../tables/ImmunizationTable";
 import Treatments from "./Patient/Treatments";
+import Labs from "./Patient/Labs";
 
 function PatientDetails() {
   const [selectedTab, setSelectedTab] = useState("personal");
@@ -59,6 +60,12 @@ function PatientDetails() {
 
         return <Treatments data={patient?.treatments} visit={visit} id={patient?.id} />;
       }
+
+      case "labs": {
+
+        return <Labs visit={visit} id={patient?.id} />;
+      }
+
 
 
 
@@ -126,31 +133,31 @@ function PatientDetails() {
                 >
                   Treatment
                 </div>
-                <div
+                {/* <div
                   className={`tab-item ${selectedTab === "medication" ? "active" : ""}`}
                   onClick={() => setSelectedTab("medication")}
                 >
                   Medication
-                </div>
-                <div
+                </div> */}
+                {/* <div
                   className={`tab-item ${selectedTab === "appointment" ? "active" : ""
                     }`}
                   onClick={() => setSelectedTab("appointment")}
                 >
                   Appointment
-                </div>
+                </div> */}
                 <div
                   className={`tab-item ${selectedTab === "labs" ? "active" : ""}`}
                   onClick={() => setSelectedTab("labs")}
                 >
                   Labs
                 </div>
-                <div
+                {/* <div
                   className={`tab-item ${selectedTab === "insurance" ? "active" : ""}`}
                   onClick={() => setSelectedTab("insurance")}
                 >
                   Insurance
-                </div>
+                </div> */}
               </div>
               <div className="w-100">  {renderTabContent()}</div>
             </>) : (
