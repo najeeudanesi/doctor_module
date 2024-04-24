@@ -1,6 +1,18 @@
-import React from "react";
-
+import React, { useState } from "react";
+import ImmunizationAttachment from "../modals/ImmunizationAttachments";
 function ImmunizationTable({ data }) {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [attachments, setAttachments] = useState([]);
+
+    const toggleModal = () => {
+        setModalOpen(!modalOpen);
+    }
+
+    const stageAttachments = (data) => {
+        setAttachments(data)
+        toggleModal();
+    }
+
     return (
         <div className="w-100 ">
             <div className="w-100 none-flex-item m-t-40">
@@ -31,13 +43,19 @@ function ImmunizationTable({ data }) {
                                 <td>{row?.temperature}</td>
                                 <td>{row?.vaccineBrand}</td>
                                 <td>{row?.batchId}</td>
-                                <td>{row?.immunizationDocuments}</td>
+                                <td><div className="rounded-btn" onClick={(() => stageAttachments(row?.immunizationDocuments))}>Attachments</div></td>
+
 
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+            {
+                modalOpen && (
+                    <ImmunizationAttachment closeModal={toggleModal} data={attachments} />
+                )
+            }
         </div>
     );
 }

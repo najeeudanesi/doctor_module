@@ -36,7 +36,7 @@ function CustomerEngagement() {
     try {
       const response = await get(`/customerengagements/customerengagements/${typeNum}/${month}/average`);
       const data = response
-      console.log(data)
+
       convertAvg(data);
     } catch (e) {
       console.log(e);
@@ -48,7 +48,7 @@ function CustomerEngagement() {
     try {
       const response = await get(`/customerengagements/customerengagements/${typeNum}/${month}?pageIndex=${currentPage}&pageSize=${PER_PAGE}`);
       const data = response
-      console.log(data)
+
       setCustomerEngagements(data.data);
       setTotalPages(Math.ceil(data.pageCount));
     } catch (e) {

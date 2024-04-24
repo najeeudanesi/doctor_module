@@ -94,7 +94,7 @@ function OutAndInpatientGraph({ propdata }) {
       return acc;
     }, []);
 
-    console.log(dist, data)
+
     return { dist, data };
   }
 

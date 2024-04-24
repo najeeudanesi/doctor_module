@@ -34,25 +34,23 @@ const Home = (props) => {
       const data = await post(
         `/Auth/login/`, payload
       );
-      if (data) {
-        console.log(data)
+      if (data?.role === "Doctor") {
+
         sessionStorage.setItem('token', "Bearer " + data.jwt.token);
         localStorage.setItem('name', data.firstName + " " + data.lastName)
         localStorage.setItem('role', data.role)
         localStorage.setItem('USER_INFO', JSON.stringify(data));
         navigate('/doctor/dashboard');
+      } else {
+        throw ({ e: "Invalid Role" })
       }
     } catch (error) {
       localStorage.removeItem('USER_INFO');
-      // notification({
-      //   title: 'ACCESS DENIED',
-      //   message: 'Sorry, This user does not have access to this application. Please Contact Admin',
-      //   type: 'warning',
-      // });
+
 
       toast.error("Login failed")
     }
-    // setTimeout(() => window.location.assign("/"), 6000);
+
 
     setLoading(false)
   };

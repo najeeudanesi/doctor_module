@@ -25,8 +25,10 @@ function Labs({ id }) {
   }, [])
   return (
     <div>
+      {
+        !isLoading ? (<LabsTable data={data} id={id} />) : (<div>Loading...</div>)
+      }
 
-      <LabsTable data={data} id={id} />
     </div>
   );
 }

@@ -23,7 +23,7 @@ function PatientDetails() {
     try {
       const data = await get(`/patients/${patientId}/data`)
       setPatient(data)
-      console.log(data)
+
       setVisit(data?.visits?.pop())
 
     } catch (e) {

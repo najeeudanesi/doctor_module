@@ -834,6 +834,12 @@ section {
 .max-w-600 {
   max-width: 600px !important;
 }
+.max-w-700 {
+  max-width: 700px !important;
+}
+.max-w-800 {
+  max-width: 800px !important;
+}
 
 .col-1,
 .col-2,
@@ -1400,6 +1406,15 @@ textarea {
   color: #3c7e2d;
   cursor: pointer;
 }
+.rounded-btn-yellow {
+  border-radius: 50px;
+  border: 1px solid #cea00a;
+  background: #fff1ca;
+  padding: 8px;
+  box-shadow: 1px 4px 11px 0px rgba(206, 189, 228, 0.25);
+  color: #645203;
+  cursor: pointer;
+}
 
 .rounded-pill {
   border-radius: 50px;
@@ -1575,4 +1590,9 @@ textarea {
   height: 100px;
   width: 600px;
   padding: 10px;
+}
+
+.outline-box {
+  border: 1px solid;
+  height: 40px;
 }

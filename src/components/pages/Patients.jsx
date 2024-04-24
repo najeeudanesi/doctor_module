@@ -27,7 +27,7 @@ function Patients() {
       const data = await get(`/patients/assignedtodoctor`);
       setPatientData(data.data);
       setFilteredData(data.data); // Initialize filtered data with all patient data
-      console.log(data);
+      ;
     } catch (e) {
       console.log("Error: ", e);
     }
@@ -40,7 +40,7 @@ function Patients() {
         `/dashboard/assignedtodoctor`, { status: 2 }
       )
       setAssignedPatients(data)
-      console.log(data)
+
 
     } catch (e) {
       console.log("Error: ", e)
@@ -56,7 +56,7 @@ function Patients() {
       )
 
       setOutpatients(data);
-      console.log(data)
+
 
     } catch (e) {
       console.log("Error: ", e)
@@ -72,7 +72,7 @@ function Patients() {
   //     )
 
   //     setWaiting(data.data.count);
-  //     console.log(data)
+  //     
 
   //   } catch (e) {
   //     console.log("Error: ", e)
@@ -87,7 +87,7 @@ function Patients() {
       )
 
       setAdmitted(data);
-      console.log(data)
+
 
     } catch (e) {
       console.log("Error: ", e)
@@ -104,7 +104,7 @@ function Patients() {
       )
 
       setHmoPatients(data);
-      console.log("hmo ", data)
+
 
     } catch (e) {
       console.log("Error: ", e)
@@ -121,7 +121,7 @@ function Patients() {
     await getAdmitted();
     await getHmoPatients();
     await getOutPatients();
-    // await getWaiting();
+
     await getTableData()
     setLoading(false)
   }

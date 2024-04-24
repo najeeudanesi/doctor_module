@@ -15,7 +15,7 @@ function MedicalRecord({ data }) {
     try {
       const data = await get("/Patients/getAllMedicalTypes");
       setMedicalTypes(data);
-      console.log(data);
+
     } catch (error) {
       console.log(error);
     }

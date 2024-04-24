@@ -36,7 +36,7 @@ function Dashboard() {
         `/dashboard/patientcaretypedata`
       )
       setGraph(data)
-      console.log(data)
+
 
     } catch (e) {
       console.log("Error: ", e)
@@ -50,7 +50,7 @@ function Dashboard() {
         `/dashboard/gender`
       )
       setGender(data)
-      console.log(data)
+
 
     } catch (e) {
       console.log("Error: ", e)
@@ -64,7 +64,7 @@ function Dashboard() {
         `/dashboard/assignedtodoctor`, { status: 2 }
       )
       setAssignedPatients(data)
-      console.log(data)
+
 
     } catch (e) {
       console.log("Error: ", e)
@@ -80,7 +80,7 @@ function Dashboard() {
       )
 
       setOutpatients(data);
-      console.log(data)
+
 
     } catch (e) {
       console.log("Error: ", e)
@@ -96,7 +96,7 @@ function Dashboard() {
       )
 
       setWaiting(data);
-      console.log(data)
+
 
     } catch (e) {
       console.log("Error: ", e)
@@ -111,7 +111,7 @@ function Dashboard() {
       )
 
       setAdmitted(data);
-      console.log(data)
+
 
     } catch (e) {
       console.log("Error: ", e)
@@ -128,7 +128,7 @@ function Dashboard() {
       )
 
       setHmoPatients(data);
-      console.log(data)
+
 
     } catch (e) {
       console.log("Error: ", e)
