@@ -5,7 +5,7 @@ import TextArea from '../UI/TextArea';
 import { post } from '../../utility/fetch';
 import toast from 'react-hot-toast';
 
-function AddTreatment({ closeModal, visit, id }) {
+function AddTreatment({ closeModal, visit, id, fetchData }) {
     const [carePlan, setCarePlan] = useState('');
     const [diagnosis, setDiagnosis] = useState('');
     const [medicationInputs, setMedicationInputs] = useState(['']); // State to hold individual medication inputs
@@ -39,7 +39,9 @@ function AddTreatment({ closeModal, visit, id }) {
         try {
             await post(`/patients/${id}/visit/${visit?.id}/addtreatmentprescription`, payload);
             toast.success('Treatment added successfully');
+            await fetchData();
             closeModal();
+
 
 
         } catch (error) {

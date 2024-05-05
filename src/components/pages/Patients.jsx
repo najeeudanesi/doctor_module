@@ -184,7 +184,7 @@ function Patients() {
   );
 
   return (
-    <div className="w-100 m-t-80">
+    <div className="w-100 m-t-80 p-20">
 
       {!loading ? (<div className="">
         <h3>Patients Management</h3>
@@ -210,8 +210,9 @@ function Patients() {
             />
           </div>
 
-          <div className="flex flex-h-end space-between  w-50 m-t-20 gap-10 ">
-            <div className="w-80">
+          <div className="flex flex-v-end space-between  w-50 m-t-20 gap-10 ">
+            <div></div>
+            <div className="w-50">
               <SearchInput type="text" onChange={handleSearchChange} value={searchText} name="searchText" />
             </div>
 

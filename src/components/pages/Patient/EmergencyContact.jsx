@@ -1,7 +1,7 @@
 import React from "react";
 import InputField from "../../UI/InputField";
 
-function EmergencyContact({ data }) {
+function EmergencyContact({ data, next }) {
   return (
     <div className="w-50">
       {" "}
@@ -19,7 +19,7 @@ function EmergencyContact({ data }) {
       <InputField label="Email" value={data?.email} disabled={true} />
       <InputField label="Phone" value={data?.phone} disabled={true} />
       <InputField label="Alt Phone" value={data?.altPhone} disabled={true} />
-      {/* <button className="btn m-t-20 w-100">Continue</button> */}
+      <button className="btn m-t-20 w-100" onClick={() => next()}>Continue</button>
     </div>
   );
 }

@@ -1,25 +1,10 @@
-import { useEffect, useState } from "react";
-import { get } from "../../utility/fetch";
+import { useState } from "react";
 
-function TreatmentTable({ patientId }) {
-    const [data, setData] = useState([]);
-    const [isloading, setIsLoading] = useState(false);
 
-    const fetchData = async () => {
-        setIsLoading(true)
-        try {
-            const response = await get(`/patients/${patientId}/treatmentrecord`)
-            console.log(response)
-            setData(response)
-        } catch (e) {
-            console.log(e)
-        }
-        setIsLoading(false)
-    }
+function TreatmentTable({ data, isloading }) {
 
-    useEffect(() => {
-        fetchData()
-    }, [])
+
+
     return (
         <div className="w-100">
             {

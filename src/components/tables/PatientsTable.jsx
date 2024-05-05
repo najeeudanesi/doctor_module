@@ -1,8 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../../utility/general";
 
 function PatientsTable({ data }) {
-
+  console.log(data)
   const navigate = useNavigate();
   return (
     <div className="w-100 ">
@@ -14,8 +15,8 @@ function PatientsTable({ data }) {
               <th>First Name</th>
               <th>Last Name</th>
               <th>Age</th>
-              <th>weight</th>
-              <th>temp</th>
+              <th>Weight</th>
+              <th>Temp</th>
               <th>Height</th>
               <th>Heart</th>
               <th>Resp</th>
@@ -37,7 +38,7 @@ function PatientsTable({ data }) {
                 <td>{row.visits[0].heartPulse}</td>
                 <td>{row.visits[0].respiratory}</td>
                 <td>{row.assignedNurse}</td>
-                <td>{new Date(row.createdAt).toLocaleDateString()}</td>
+                <td>{formatDate(row.createdAt)}</td>
               </tr>
             ))}
           </tbody>

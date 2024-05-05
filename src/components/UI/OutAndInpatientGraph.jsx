@@ -108,7 +108,7 @@ function OutAndInpatientGraph({ propdata }) {
       <div className="w-100 flex  ">
         <BarChart
           width={800}
-          height={300}
+          height={200}
           data={data}
           margin={{
             top: 5,
@@ -136,7 +136,7 @@ function OutAndInpatientGraph({ propdata }) {
           />
         </BarChart>
 
-        <PieChart width={250} height={250}>
+        <PieChart width={250} height={200}>
           <Legend
             iconType="circle"
             layout="horizontal"

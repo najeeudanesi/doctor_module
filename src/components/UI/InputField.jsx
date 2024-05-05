@@ -2,7 +2,7 @@ import React from "react";
 
 function InputField(props) {
   return (
-    <div className="flex flex-v-center m-t-20">
+    <div className="flex flex-v-center m-t-10">
       {props.label &&
         <div className="label ">{props.label}</div>
       }
@@ -14,6 +14,7 @@ function InputField(props) {
         value={props.value}
         onChange={props.onChange}
         disabled={props.disabled}
+        required={props.required}
       />
     </div>
   );

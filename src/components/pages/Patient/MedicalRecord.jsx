@@ -89,7 +89,7 @@ function MedicalRecord({ data }) {
                   medicalTypes.map((type) => (
                     <div
                       key={type.index}
-                      className={`pointer m-t-20 ${selectedTab === type.index ? "pilled bold-text" : ""
+                      className={`pointer m-t-40 ${selectedTab === type.index ? "pilled bold-text" : ""
                         }`}
                       onClick={() => setSelectedTab(type.index)}
                     >

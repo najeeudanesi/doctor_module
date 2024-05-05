@@ -8,6 +8,20 @@ export const toggleScroll = () => {
   }
 };
 
+export const formatDate = (input) => {
+  const date = new Date(input);
+
+  const year = String(date.getUTCFullYear());
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const hours = String(date.getUTCHours()).padStart(2, '0');
+  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+  const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+
+  return `${day}-${month}-${year}`;
+
+}
+
 export const convertImgToBase64 = (inputFile) => {
   if (inputFile === undefined) return '';
   const file = new FileReader();
@@ -25,59 +39,59 @@ export const convertImgToBase64 = (inputFile) => {
   });
 };
 
-export const months = 
- 
-    [
-      {
-        value:0,
-        label:"January"
-      },
-      {
-        value:1,
-        label:"February"
-      },
-      {
-        value:2,
-        label:"March"
-      },
-      {
-        value:3,
-        label:"April"
-      },
-      {
-        value:4,
-        label:"May"
-      },
-      {
-        value:5,
-        label:"June"
-      },
-      {
-        value:6,
-        label:"July"
-      },
-      {
-        value:7,
-        label:"August"
-      },
-      {
-        value:8,
-        label:"September"
-      },
-      {
-        value:9,
-        label:"October"
-      },
-      {
-        value:10,
-        label:"November"
-      },
-      {
-        value:11,
-        label:"December"
-      },
-      
-    ]
+export const months =
+
+  [
+    {
+      value: 0,
+      label: "January"
+    },
+    {
+      value: 1,
+      label: "February"
+    },
+    {
+      value: 2,
+      label: "March"
+    },
+    {
+      value: 3,
+      label: "April"
+    },
+    {
+      value: 4,
+      label: "May"
+    },
+    {
+      value: 5,
+      label: "June"
+    },
+    {
+      value: 6,
+      label: "July"
+    },
+    {
+      value: 7,
+      label: "August"
+    },
+    {
+      value: 8,
+      label: "September"
+    },
+    {
+      value: 9,
+      label: "October"
+    },
+    {
+      value: 10,
+      label: "November"
+    },
+    {
+      value: 11,
+      label: "December"
+    },
+
+  ]
 
 export const years = [
   {
@@ -95,7 +109,7 @@ export const numberWithCommas = (x) => {
   }
 }
 
-export  const stripCommas = (val) => {
+export const stripCommas = (val) => {
   let num = String(val).replace(/,/g, '')
   return parseFloat(num);
 }
@@ -104,16 +118,16 @@ export const formatFileUrl = (path) => `${process.env.REACT_APP_BACKEND_URL}/${p
 
 export const getStatus = (data) => {
   if (data.statusDetails === "Unasigned") {
-      return "Saved"
+    return "Saved"
   }
   if (data.statusDetails === "Pending") {
-      return `Currently with ${data.lastApprover} - (${data.pendingOffice})`
+    return `Currently with ${data.lastApprover} - (${data.pendingOffice})`
   }
   if (data.statusDetails === "ApprovalCompleted") {
-      return `Approved by ${data.lastApprover}`
+    return `Approved by ${data.lastApprover}`
   }
   if (data.statusDetails === "Declined") {
-      return `Declined by ${data.lastApprover}`
+    return `Declined by ${data.lastApprover}`
   }
   return ""
 }

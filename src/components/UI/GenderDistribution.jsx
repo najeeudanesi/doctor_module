@@ -25,11 +25,11 @@ function GenderDistribution({ propData }) {
   }
 
   return (
-    <div className="w-100 container">
+    <div className="w-90 container">
       <div className="bold-text w-100 border-bottom p-b-20">
         Gender Distribution
       </div>
-      <PieChart width={250} height={250}>
+      <PieChart width={250} height={200}>
         <Legend iconType="circle" layout="horizontal" verticalAlign="bottom" />
         <Pie
           data={data}
