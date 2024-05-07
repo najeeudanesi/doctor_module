@@ -26,6 +26,7 @@ function ImmunizationTable({ data }) {
                             <th>weight</th>
                             <th>temp</th>
                             <th>Brand</th>
+                            <th>Admin nurse</th>
                             <th>Vaccine Batch ID</th>
                             <th>Attatchment</th>
 
@@ -42,6 +43,7 @@ function ImmunizationTable({ data }) {
                                 <td>{row?.weight}</td>
                                 <td>{row?.temperature}</td>
                                 <td>{row?.vaccineBrand}</td>
+                                <td>{row?.adminNurse}</td>
                                 <td>{row?.batchId}</td>
                                 <td><div className="rounded-btn" onClick={(() => stageAttachments(row?.immunizationDocuments))}>Attachments</div></td>
 

@@ -3,7 +3,7 @@ import InputField from "../../UI/InputField";
 
 function EmergencyContact({ data, next }) {
   return (
-    <div className="w-50">
+    <div className="w-40">
       {" "}
       <div className="m-t-40"></div>
       <InputField label="Relationship" value={data?.relationship} disabled={true} />

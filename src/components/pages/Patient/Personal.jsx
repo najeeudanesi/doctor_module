@@ -7,7 +7,7 @@ function Personal({ data }) {
     return date.toLocaleDateString(); // Adjust format as needed
   };
   return (
-    <div className="w-50">
+    <div className="w-40">
       {" "}
       <div className="m-t-40" ></div>
       <InputField label="First Name" value={data?.firstName} disabled={true} />

@@ -510,7 +510,7 @@
 
 .text-area-input-field {
   width: 100%;
-  height: 150px;
+  height: 100px;
   top: 181px;
   left: -300px;
   border-radius: 4px;
@@ -1294,7 +1294,7 @@ textarea {
 }
 
 .label-textarea {
-  height: 150px;
+  height: 100px;
   background-color: #ebffe6;
   padding: 10px;
   width: 250px;

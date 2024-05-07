@@ -61,7 +61,7 @@ function Dashboard() {
   const getAssigned = async () => {
     try {
       const data = await get(
-        `/dashboard/assignedtodoctor`, { status: 2 }
+        `/dashboard/assignedtodoctor`, { status: 1 }
       )
       setAssignedPatients(data)
 
@@ -92,7 +92,7 @@ function Dashboard() {
   const getWaiting = async () => {
     try {
       const data = await get(
-        `/dashboard/administered`
+        `/dashboard/assignedtodoctor`, { status: 2 }
       )
 
       setWaiting(data);

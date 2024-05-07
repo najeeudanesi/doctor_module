@@ -21,6 +21,7 @@ function Patients() {
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState("")
   const [loading, setLoading] = useState(false)
+  const [filteredDate, setFilteredDate] = useState(null); // Add state for filtered date
 
   const getTableData = async () => {
     try {
@@ -113,7 +114,9 @@ function Patients() {
 
   }
 
-
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = async () => {
     setLoading(true)
@@ -127,16 +130,10 @@ function Patients() {
   }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    setSummary([assignedPatients, outPatients, waiting, admitted, hmoPatients]);
+  }, [assignedPatients, outPatients, waiting, admitted, hmoPatients]);
 
   useEffect(() => {
-    setSummary([assignedPatients, outPatients, waiting, admitted, hmoPatients])
-  }, [assignedPatients, outPatients, waiting, admitted, hmoPatients])
-
-
-  useEffect(() => {
-    // Filter patient data whenever searchText changes
     const filteredResults = patientData.filter((patient) =>
       patient.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
       patient.lastName.toLowerCase().includes(searchText.toLowerCase())
@@ -144,14 +141,48 @@ function Patients() {
     setFilteredData(filteredResults);
   }, [searchText, patientData]);
 
+  // Function to handle date change
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    setFilteredDate(date); // Set the filtered date
+  };
+
+  useEffect(() => {
+    if (filteredDate) {
+      const filteredResults = patientData.filter((patient) => {
+        // Parse the date string into a Date object
+        const patientDate = new Date(patient.createdAt);
+
+        // Extract the date components
+        const patientYear = patientDate.getFullYear();
+        const patientMonth = patientDate.getMonth();
+        const patientDay = patientDate.getDate();
+
+        // Extract the selected date components
+        const selectedYear = filteredDate.getFullYear();
+        const selectedMonth = filteredDate.getMonth();
+        const selectedDay = filteredDate.getDate();
+
+        // Compare the date components
+        return (
+          patientYear === selectedYear &&
+          patientMonth === selectedMonth &&
+          patientDay === selectedDay
+        );
+      });
+      setFilteredData(filteredResults);
+    } else {
+      setFilteredData(patientData); // If no date selected, show all data
+    }
+  }, [filteredDate, patientData]);
+
+
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
 
   // Function to handle date change
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
+
 
   // Function to format the date as "dd-MM-yyyy"
   const formatDate = (date) => {
@@ -191,7 +222,7 @@ function Patients() {
         <div>
           <div className="flex w-100 space-between gap-8 m-t-20">
             {stats.map((stat, index) => (
-              <div className="w-20" key={stat.id}>
+              <div className="w-20" key={index}>
                 <StatCard data={stat} number={summary[index]} icon={stat.icon} />
               </div>
             ))}

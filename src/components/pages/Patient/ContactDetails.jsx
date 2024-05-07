@@ -4,7 +4,7 @@ import InputField from "../../UI/InputField";
 function ContactDetails({ data }) {
   return (
     <div>
-      <div className="w-50">
+      <div className="w-40">
         {" "}
         <div className="m-t-40"></div>
         <InputField label="State Of Residence" value={data?.stateOfResidence} disabled={true} />
