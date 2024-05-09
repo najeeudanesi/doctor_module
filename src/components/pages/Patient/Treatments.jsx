@@ -4,6 +4,7 @@ import ReferPatient from "../../modals/ReferPatient";
 import { useEffect, useState } from "react";
 import AddTreatment from "../../modals/AddTreatment";
 import { get } from "../../../utility/fetch";
+import toast from "react-hot-toast";
 
 function Treatments({ visit, id }) {
   const [showModal, setShowModal] = useState(false);
@@ -12,11 +13,21 @@ function Treatments({ visit, id }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const toggleModal = () => {
+    console.log(visit)
+    if (visit === null) {
+      toast("A visit has to exist before you can add treatment")
+      return
+    }
     setShowModal(!showModal);
     console.log(visit)
   }
 
   const toggleTreatmentModal = () => {
+    console.log(visit)
+    if (visit === null) {
+      toast("A visit has to exist before you can add treatment")
+      return
+    }
     setTreatmentModal(!treatmentModal);
   }
 
@@ -43,7 +54,7 @@ function Treatments({ visit, id }) {
         showModal && <ReferPatient closeModal={toggleModal} visit={visit} id={id} />
       }
       {
-        treatmentModal && <AddTreatment closeModal={toggleTreatmentModal} visit={visit} id={id} fetchData={() => fetchData} />
+        treatmentModal && <AddTreatment closeModal={toggleTreatmentModal} visit={visit} id={id} fetchData={() => fetchData()} />
       }
 
     </div>

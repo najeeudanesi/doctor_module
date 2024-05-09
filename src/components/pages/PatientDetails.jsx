@@ -27,7 +27,7 @@ function PatientDetails() {
       const data = await get(`/patients/${patientId}/data`);
       setPatient(data);
       console.log(data);
-      setVisit(data?.visits?.pop());
+      setVisit(data?.visits.pop());
     } catch (e) {
       console.log(e);
     }
@@ -52,19 +52,18 @@ function PatientDetails() {
           />
         );
       case "medicalRecord":
-        return <MedicalRecord data={patient.medicalRecords} />;
+        return <MedicalRecord data={patient.medicalRecords} next={() => switchToTab("immunization")} fetchData={getPatientDetails} />;
       case "visits":
         return (
           <VisitTable
-            data={patient?.visits}
-            nurseName={patient?.nurseName}
-            doctorName={patient?.doctorName}
+            patientId={patient?.id}
+            next={() => switchToTab("treatment")}
           />
         );
       case "immunization":
-        return <ImmunizationTable data={patient?.immunizations} />;
+        return <ImmunizationTable patientId={patient?.id} />;
       case "treatment":
-        return <Treatments data={patient?.treatments} visit={visit} id={patient?.id} />;
+        return <Treatments data={patient?.treatments} visit={visit || null} id={patient?.id} />;
       case "labs":
         return <Labs visit={visit} id={patient?.id} />;
       default:
@@ -135,10 +134,10 @@ function PatientDetails() {
                   Labs
                 </div>
               </div>
-              <div className="w-100">{renderTabContent()}</div>
+              <div className="w-100 p-x-20">{renderTabContent()}</div>
             </>
           ) : (
-            <div className="m-t-40 bold-text">
+            <div className="m-t-40 bold-text p-40">
               <h1>Patient not found</h1>
             </div>
           )}

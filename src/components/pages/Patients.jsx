@@ -21,13 +21,15 @@ function Patients() {
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState("")
   const [loading, setLoading] = useState(false)
-  const [filteredDate, setFilteredDate] = useState(null); // Add state for filtered date
+  const [filteredDate, setFilteredDate] = useState(new Date()); // Add state for filtered date
 
   const getTableData = async () => {
     try {
       const data = await get(`/patients/assignedtodoctor`);
       setPatientData(data.data);
       setFilteredData(data.data); // Initialize filtered data with all patient data
+      console.log(selectedDate);
+
       ;
     } catch (e) {
       console.log("Error: ", e);
@@ -38,7 +40,7 @@ function Patients() {
   const getAssigned = async () => {
     try {
       const data = await get(
-        `/dashboard/assignedtodoctor`, { status: 2 }
+        `/dashboard/assignedtodoctor`, { status: 1 }
       )
       setAssignedPatients(data)
 
@@ -53,10 +55,11 @@ function Patients() {
   const getOutPatients = async () => {
     try {
       const data = await get(
-        `/dashboard/doctor/admittedpatients`
+        `/dashboard/AllOutPatientAndInPatientCount`
       )
 
-      setOutpatients(data);
+      setOutpatients(data.outpatientCount);
+
 
 
     } catch (e) {
@@ -66,21 +69,21 @@ function Patients() {
 
   }
 
-  // const getWaiting = async () => {
-  //   try {
-  //     const data = await get(
-  //       `/dashboard/admission`
-  //     )
+  const getWaiting = async () => {
+    try {
+      const data = await get(
+        `/dashboard/assignedtodoctor`, { status: 1 }
+      )
 
-  //     setWaiting(data.data.count);
-  //     
+      setWaiting(data);
 
-  //   } catch (e) {
-  //     console.log("Error: ", e)
 
-  //   }
+    } catch (e) {
+      console.log("Error: ", e)
 
-  // }
+    }
+
+  }
   const getAdmitted = async () => {
     try {
       const data = await get(
@@ -124,7 +127,7 @@ function Patients() {
     await getAdmitted();
     await getHmoPatients();
     await getOutPatients();
-
+    await getWaiting();
     await getTableData()
     setLoading(false)
   }
@@ -134,11 +137,17 @@ function Patients() {
   }, [assignedPatients, outPatients, waiting, admitted, hmoPatients]);
 
   useEffect(() => {
+    if (searchText === "") {
+      dateFilter();
+      return
+    }
     const filteredResults = patientData.filter((patient) =>
       patient.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
       patient.lastName.toLowerCase().includes(searchText.toLowerCase())
     );
+
     setFilteredData(filteredResults);
+
   }, [searchText, patientData]);
 
   // Function to handle date change
@@ -147,7 +156,7 @@ function Patients() {
     setFilteredDate(date); // Set the filtered date
   };
 
-  useEffect(() => {
+  const dateFilter = () => {
     if (filteredDate) {
       const filteredResults = patientData.filter((patient) => {
         // Parse the date string into a Date object
@@ -174,6 +183,9 @@ function Patients() {
     } else {
       setFilteredData(patientData); // If no date selected, show all data
     }
+  }
+  useEffect(() => {
+    dateFilter();
   }, [filteredDate, patientData]);
 
 

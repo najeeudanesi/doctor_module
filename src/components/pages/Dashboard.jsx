@@ -76,10 +76,11 @@ function Dashboard() {
   const getOutPatients = async () => {
     try {
       const data = await get(
-        `/dashboard/doctor/admittedpatients`
+        `/dashboard/AllOutPatientAndInPatientCount`
       )
 
-      setOutpatients(data);
+      setOutpatients(data.outpatientCount);
+
 
 
     } catch (e) {
