@@ -21,7 +21,7 @@ function Patients() {
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState("")
   const [loading, setLoading] = useState(false)
-  const [filteredDate, setFilteredDate] = useState(new Date()); // Add state for filtered date
+  const [filteredDate, setFilteredDate] = useState(null); // Add state for filtered date
 
   const getTableData = async () => {
     try {
@@ -148,7 +148,7 @@ function Patients() {
 
     setFilteredData(filteredResults);
 
-  }, [searchText, patientData]);
+  }, [searchText]);
 
   // Function to handle date change
   const handleDateChange = (date) => {
@@ -156,11 +156,15 @@ function Patients() {
     setFilteredDate(date); // Set the filtered date
   };
 
-  const dateFilter = () => {
+  const dateFilter = async () => {
+    await getTableData();
+    setFilteredData(patientData);
     if (filteredDate) {
       const filteredResults = patientData.filter((patient) => {
         // Parse the date string into a Date object
-        const patientDate = new Date(patient.createdAt);
+        const patientDateRaw = patient?.visits.pop()?.dateOfVisit
+        console.log(patientDateRaw)
+        const patientDate = new Date(patientDateRaw)
 
         // Extract the date components
         const patientYear = patientDate.getFullYear();
@@ -181,22 +185,19 @@ function Patients() {
       });
       setFilteredData(filteredResults);
     } else {
-      setFilteredData(patientData); // If no date selected, show all data
+      setFilteredData(patientData);
     }
   }
   useEffect(() => {
     dateFilter();
-  }, [filteredDate, patientData]);
+  }, [filteredDate]);
 
 
   const handleSearchChange = (event) => {
     setSearchText(event.target.value);
   };
 
-  // Function to handle date change
 
-
-  // Function to format the date as "dd-MM-yyyy"
   const formatDate = (date) => {
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -204,24 +205,13 @@ function Patients() {
     return `${day}-${month}-${year}`;
   };
 
-  // Function to check if the selected date is today
-  const isToday = (date) => {
-    const today = new Date();
-    return (
-      date.getDate() === today.getDate() &&
-      date.getMonth() === today.getMonth() &&
-      date.getFullYear() === today.getFullYear()
-    );
-  };
-
-  // Custom input for the date picker
   const CustomInput = ({ value, onClick }) => (
     <button
       onClick={onClick}
       onKeyDown={(e) => e.preventDefault()} // Prevent typing in the date field
       className="custom-datepicker-input flex gap-6 flex-v-center"
     >
-      {isToday(selectedDate) ? "Today" : formatDate(selectedDate)}
+      {filteredDate ? formatDate(selectedDate) : "Select Date"} {/* Update this line */}
       <RiCalendar2Fill />
     </button>
   );

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import InputField from "../../UI/InputField";
 import TextArea from "../../UI/TextArea";
 import { RiToggleFill } from "react-icons/ri";
-import { get } from "../../../utility/fetch";
+import { get, post } from "../../../utility/fetch";
 import AddMedicalRecord from "../../modals/AddMedicalRecord";
+import MedicalRecordTable from "../../tables/MedicalRecordTable";
+import toast from "react-hot-toast";
 
 function MedicalRecord({ data, next, fetchData }) {
   const [selectedTab, setSelectedTab] = useState(1);
@@ -11,6 +13,8 @@ function MedicalRecord({ data, next, fetchData }) {
   const [medicalTypes, setMedicalTypes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState(false);
+  const [typeName, setTypeName] = useState("");
+  const [typeComment, setTypeComment] = useState("");
   const getMedicalTypes = async () => {
     setLoading(true);
     try {
@@ -27,6 +31,31 @@ function MedicalRecord({ data, next, fetchData }) {
   const toggleModal = () => {
     setModal(!modal);
   }
+
+  const addMedicalRecord = async () => {
+    if (typeComment === "" || typeName === "") {
+      toast("Please fill in fields")
+      return
+    }
+    setLoading(true);
+    const payload = {
+      medicalRecordType: selectedTab,
+      name: typeName,
+      comment: typeComment,
+      patientId: data[0]?.patientId
+    };
+    console.log(payload);
+    try {
+      await post(`/patients/addmedicalrecord`, payload);
+      toast.success('Medical record added successfully');
+      await fetchData();
+
+    } catch (error) {
+      toast.error('Error adding medical record');
+      console.log(error);
+    }
+    setLoading(false);
+  };
 
   useEffect(() => {
     getMedicalTypes();
@@ -51,7 +80,9 @@ function MedicalRecord({ data, next, fetchData }) {
         } else {
           initialRecords[selectedType.index] = recordsOfType.map(record => ({
             name: record.name || "",
-            comment: record.comment || ""
+            comment: record.comment || "",
+            actionTaken: record.actionTaken || "",
+            createdAt: record.createdAt || ""
           }));
         }
       }
@@ -78,58 +109,59 @@ function MedicalRecord({ data, next, fetchData }) {
         loading ? <div>Loading...</div> : (
           <div>
             <div className="m-t-40 bold-text">Medical Records</div>
+            <div>
+              <div className="flex m-t-30">
+                <div className="m-r-80">
+                  {medicalTypes &&
+                    medicalTypes.map((type) => (
+                      <div
+                        key={type.index}
+                        className={`pointer m-t-30 font-sm ${selectedTab === type.index ? "pilled bold-text " : ""
+                          }`}
+                        onClick={() => setSelectedTab(type.index)}
+                      >
+                        {type.value}
+                      </div>
+                    ))}
+                </div>
 
-            <div className="flex m-t-30">
-              <div className="m-r-80">
-                {medicalTypes &&
-                  medicalTypes.map((type) => (
-                    <div
-                      key={type.index}
-                      className={`pointer m-t-30 font-sm ${selectedTab === type.index ? "pilled bold-text " : ""
-                        }`}
-                      onClick={() => setSelectedTab(type.index)}
-                    >
-                      {type.value}
-                    </div>
-                  ))}
-              </div>
+                <div>
+                  {(selectedTab && medicalTypes) &&
 
-              <div>
-                {(selectedTab && medicalTypes) &&
-                  medicalRecords[selectedTab]?.map((record, index) => (
-                    <div key={index}>
+                    <div>
                       <InputField
                         label={`${medicalTypes[selectedTab - 1]?.value}`}
                         type="text"
                         placeholder={`${medicalTypes[selectedTab - 1]?.value}`}
-                        value={record.name}
-                        disabled={true}
+                        value={typeName}
+                        onChange={(e) => setTypeName(e.target.value)}
                       />
                       <TextArea
                         label="Comment"
                         type="text"
                         placeholder="Comment"
-                        value={record.comment}
-                        disabled={true}
+                        value={typeComment}
+                        onChange={(e) => setTypeComment(e.target.value)}
                       />
                     </div>
-                  ))}
-                <div className="w-100 flex flex-h-end">
-                  <button
-                    className="rounded-btn m-t-20"
-                    onClick={toggleModal}
-                  >
-                    Add {medicalTypes[selectedTab - 1]?.value}
+                  }
+                  <div className="w-100 flex flex-h-end">
+                    <button
+                      className="rounded-btn m-t-20"
+                      onClick={() => addMedicalRecord()}
+                    >
+                      Add {medicalTypes[selectedTab - 1]?.value}
+                    </button>
+                  </div>
+                  <button className="btn w-100 m-t-20" onClick={() => next()}>
+                    Continue
                   </button>
                 </div>
-                <button className="btn w-100 m-t-20" onClick={() => next()}>
-                  Continue
-                </button>
               </div>
 
-              {
-                modal && <AddMedicalRecord closeModal={toggleModal} patientId={data[0]?.patientId} fetchData={fetchData} medicalRecordType={selectedTab} />
-              }
+              <div className="w-75">
+                <MedicalRecordTable data={medicalRecords[selectedTab] || []} />
+              </div>
             </div>
           </div>
         )

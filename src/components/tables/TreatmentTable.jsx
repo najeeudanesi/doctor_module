@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { RiFilePaper2Line } from "react-icons/ri";
+import NurseNotes from "../modals/NurseNotes";
+import { formatDate } from "../../utility/general";
 
-
-function TreatmentTable({ data, isloading }) {
-
+function TreatmentTable({ data, isloading, patientId }) {
+    const [noteModalData, setNoteModalData] = useState(null); // State to store the data for the note modal
 
 
     return (
@@ -20,7 +22,7 @@ function TreatmentTable({ data, isloading }) {
                                             <th>Age</th>
                                             <th>weight</th>
                                             <th>Temp</th>
-                                            <th>Admin Nurse</th>
+
                                             <th>Nurse Note</th>
                                             <th>Diagnosis</th>
                                             <th>Medication/Prescription</th>
@@ -36,8 +38,12 @@ function TreatmentTable({ data, isloading }) {
                                                 <td>{row?.age}</td>
                                                 <td>{row?.weight}kg</td>
                                                 <td>{row?.temperature}C</td>
-                                                <td>{row?.nurse}</td>
-                                                <td>{row?.additionalNote}</td>
+
+                                                <td>
+                                                    <div className="outline pointer" onClick={() => setNoteModalData(row)}>
+                                                        <RiFilePaper2Line />
+                                                    </div>
+                                                </td>
                                                 <td>{row?.diagnosis}</td>
                                                 <td><ul>{row?.medications.map((medication, index) => (
                                                     <li key={index}>{medication.name}</li>
@@ -48,6 +54,7 @@ function TreatmentTable({ data, isloading }) {
                                         ))}
                                     </tbody>
                                 </table>
+                                {noteModalData && <NurseNotes closeModal={() => setNoteModalData(null)} visitId={noteModalData?.visitId} patientId={patientId} />}
                             </div>
                         ) : (
                             <p>No data available</p>

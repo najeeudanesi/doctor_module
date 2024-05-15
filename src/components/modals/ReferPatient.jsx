@@ -29,6 +29,10 @@ function ReferPatient({ closeModal, visit, id }) {
     };
 
     const referPatient = async () => {
+        if (labCenter === '' || labType === '' || labRequests.length === 0 || labNotes === '') {
+            toast("Please fill in all fields")
+            return
+        }
         setLoading(true);
         const payload = {
             labCenter: labCenter,
@@ -38,7 +42,7 @@ function ReferPatient({ closeModal, visit, id }) {
             labNote: labNotes,
         }
         try {
-            await post(`/patients/${id}/visit/${visit?.id}/labrequest`, payload);
+            await post(`/patients/${id}/visit/${visit?.id}/lab-request`, payload);
             toast.success('Lab request added successfully');
             closeModal();
         } catch (error) {

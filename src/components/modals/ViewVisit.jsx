@@ -10,9 +10,9 @@ function ViewVisit({ closeModal, visit, next }) {
             <RiCloseFill className='close-btn pointer' onClick={closeModal} />
             <div className="modal-box max-w-600">
                 <div className="p-40">
-                    <h3 className="bold-text">Refer Patient</h3>
+                    <h3 className="bold-text">Visit</h3>
 
-                    <table className="bordered-table-2">
+                    <table className="bordered-table">
                         <thead className="border-top-none">
                             <tr className="border-top-none">
                                 <th className="w-20">Date</th>

@@ -63,7 +63,7 @@ function Facility() {
               <div className="flex gap-10"> <h4>Occupied: {occupied}</h4> <h4>Available: {available}</h4></div>
             </div>
 
-            {newData ? (<div className="grid gap-16 m-t-20">
+            {newData ? (<div className="grid m-t-20">
               {newData.map((patient, index) => (
                 <FacilityCard key={index} data={patient} />
               ))}

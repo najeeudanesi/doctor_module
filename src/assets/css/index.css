@@ -319,7 +319,6 @@
 }
 
 .comment-btn {
-  width: 206px;
   color: #3c7e2d;
   background-color: #e8ffda;
   height: 40px;
@@ -520,6 +519,12 @@
 
 .bordered-table {
   width: 100%;
+  font-size: 13px;
+  border-collapse: collapse;
+}
+.bordered-table-2 {
+  width: 100%;
+  font-size: 13px;
   border-collapse: collapse;
 }
 
@@ -847,6 +852,9 @@ section {
 }
 .max-w-800 {
   max-width: 800px !important;
+}
+.max-w-1000 {
+  max-width: 1000px !important;
 }
 
 .col-1,
@@ -1647,4 +1655,8 @@ textarea {
   border-radius: 6px;
   background: #d9fcdb;
   color: #017d34;
+}
+
+.text-sm {
+  font-size: 13px;
 }

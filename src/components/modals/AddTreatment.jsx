@@ -38,6 +38,10 @@ function AddTreatment({ closeModal, visit, id, fetchData }) {
     };
 
     const addTreatment = async () => {
+        if (diagnosis === '' || carePlan === '') {
+            toast('Please fill in all fields')
+            return
+        }
         setLoading(true);
         const payload = {
             dateOfVisit: visit?.dateOfVisit,
@@ -46,6 +50,7 @@ function AddTreatment({ closeModal, visit, id, fetchData }) {
             carePlan: carePlan,
             treatmentCategoryId: selectedCategoryId // Use the selected category ID
         }
+        console.log(payload)
 
         try {
             await post(`/patients/${id}/visit/${visit?.id}/addtreatmentprescription`, payload);

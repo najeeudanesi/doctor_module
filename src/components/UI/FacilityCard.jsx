@@ -1,23 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RiHotelBedFill } from "react-icons/ri";
+import { get } from "../../utility/fetch";
+import NurseNotes from "../modals/NurseNotes";
 
 function FacilityCard({ data }) {
+  const [modal, setModal] = useState(false);
+  const [visits, setVisits] = useState([]);
+  const [lastVisit, setLastVisit] = useState(null);
+
+
+  const fetchData = async () => {
+    try {
+      const response = await get(`/patients/${data?.patientId}/visitrecord`);
+      console.log(response)
+      setVisits(response);
+      setLastVisit(response[response.length - 1] || null);
+    }
+    catch (e) {
+      console.log(e);
+    }
+  };
+
+
+  const toggleModal = () => {
+    setModal(!modal);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, [])
   return (
     <div>
-      {data?.isOccupied === "Occupied" ? (
-        <div>
+      {data?.status === "Occupied" ? (
+        <div className="w-50" onClick={toggleModal}>
           <div className="card">
 
             <RiHotelBedFill size={98} className="text-green" />
             <p>{data?.facilityId}</p>
             <div>{data?.bedName}</div>
           </div>
-          <div className="comment-btn w-80">
-            <p className="text-center p-10">{data?.patientName || "Patient Name"}</p>
+          <div className="comment-btn w-100">
+            <p className="text-center w-100 p-10">{data?.patientName || "Patient Name"}</p>
           </div>
         </div>
       ) : (
-        <div>
+        <div className="w-50">
           <div className="card gray-bg">
 
             <RiHotelBedFill size={98} className="text-gray" />
@@ -25,10 +52,16 @@ function FacilityCard({ data }) {
             <div>{data?.bedName}</div>
           </div>
           <button className="comment-btn w-80" disabled>
-            <p className="text-center p-10">{data?.isOccupied}</p>
+            <p className="text-center w-100 p-10">{data?.status}</p>
           </button>
         </div>
       )}
+
+      {
+        modal && (
+          <NurseNotes visitId={lastVisit?.id} patientId={data?.patientId} closeModal={toggleModal} isFcilityView={true} />
+        )
+      }
     </div>
   );
 }
