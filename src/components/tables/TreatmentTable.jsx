@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RiFilePaper2Line } from "react-icons/ri";
 import NurseNotes from "../modals/NurseNotes";
 import { formatDate } from "../../utility/general";
+import NurseNotesTreatment from "../modals/NurseNotesTreatment";
 
 function TreatmentTable({ data, isloading, patientId }) {
     const [noteModalData, setNoteModalData] = useState(null); // State to store the data for the note modal
@@ -45,16 +46,22 @@ function TreatmentTable({ data, isloading, patientId }) {
                                                     </div>
                                                 </td>
                                                 <td>{row?.diagnosis}</td>
-                                                <td><ul>{row?.medications.map((medication, index) => (
-                                                    <li key={index}>{medication.name}</li>
-                                                ))}</ul></td>
+                                                <td><ol>{row?.medications.map((medication, index) => (
+                                                    <li className="text-start m-t-10 bold-text" key={index}>{medication.name}</li>
+                                                ))}</ol>
+
+                                                    <div className="text-start p-10 flex gap-4">
+
+                                                        <u className="bold-text">Care Plan: </u>
+                                                        <p className="text-gray"> {row?.carePlan}</p></div>
+                                                </td>
 
 
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
-                                {noteModalData && <NurseNotes closeModal={() => setNoteModalData(null)} visitId={noteModalData?.visitId} patientId={patientId} />}
+                                {noteModalData && <NurseNotesTreatment closeModal={() => setNoteModalData(null)} data={noteModalData} patientId={patientId} />}
                             </div>
                         ) : (
                             <p>No data available</p>

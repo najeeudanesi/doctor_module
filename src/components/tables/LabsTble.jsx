@@ -7,6 +7,7 @@ function LabsTable({ data, id }) {
     const [attachments, setAttachments] = useState([]);
     const [patient, setPatient] = useState("");
     const [subject, setSubject] = useState("");
+    const [fullData, setFullData] = useState(null);
 
 
     const toggleModal = () => {
@@ -17,6 +18,7 @@ function LabsTable({ data, id }) {
         setAttachments(data?.patientLabDocuments)
         setPatient(data?.patientFullName)
         setSubject(data?.subject)
+        setFullData(data)
         toggleModal();
     }
 
@@ -41,7 +43,9 @@ function LabsTable({ data, id }) {
                             <tr key={row.id}>
                                 <td>{row?.age}</td>
                                 <td>{row?.diagnosis}</td>
-                                <td >{row?.labRequest}</td>
+                                <td ><ol>{row?.patientTestRequests.map((request, index) => (
+                                    <li className="text-start m-t-10" key={index}>{request.labTest}</li>
+                                ))}</ol></td>
                                 <td >{new Date(row?.createdOn).toLocaleDateString()}</td>
                                 <td ><div className="rounded-btn-yellow w-75 flex flex-v-center gap-2 flex-h-center" onClick={(() => stageAttachments(row))}><RiFilePaper2Line /> Lab Notes</div></td>
                             </tr>
@@ -52,7 +56,7 @@ function LabsTable({ data, id }) {
             {
                 modalOpen && (
                     <LabsAttachment closeModal={toggleModal} data={attachments} patient={patient
-                    } subject={subject} />
+                    } subject={subject} fullData={fullData} />
                 )
             }
         </div>

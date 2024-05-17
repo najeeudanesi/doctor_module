@@ -7,40 +7,48 @@ import toast from 'react-hot-toast';
 import { BsTrash } from 'react-icons/bs';
 
 function ReferPatient({ closeModal, visit, id }) {
-    const [labNotes, setLabNotes] = useState('');
-    const [labType, setLabType] = useState('');
-    const [labRequests, setLabRequests] = useState([]);
+    const [testRequests, setTestRequests] = useState([]);
     const [loading, setLoading] = useState(false);
     const [diagnosis, setDiagnosis] = useState('');
-    const [labCenter, setLabCenter] = useState('');
-    const [currentLabRequest, setCurrentLabRequest] = useState('');
+    const [additionalNote, setAdditionalNote] = useState('');
+    const [labCentre, setLabCentre] = useState('');
+    const [labTest, setLabTest] = useState('');
 
+    console.log(visit)
     const addLabRequest = () => {
-        if (currentLabRequest.trim() !== '') {
-            setLabRequests([...labRequests, currentLabRequest]);
-            setCurrentLabRequest(''); // Clear the input field
+        if (labCentre.trim() !== '' && labTest.trim() !== '') {
+            setTestRequests([...testRequests, { labTest, labCentre }]);
+            setLabCentre('');
+            setLabTest('');
+        } else {
+            toast("Please add at least one request");
         }
     };
 
     const removeLabRequest = (index) => {
-        const updatedLabRequests = [...labRequests];
-        updatedLabRequests.splice(index, 1);
-        setLabRequests(updatedLabRequests);
+        const updatedTestRequests = [...testRequests];
+        updatedTestRequests.splice(index, 1);
+        setTestRequests(updatedTestRequests);
     };
 
     const referPatient = async () => {
-        if (labCenter === '' || labType === '' || labRequests.length === 0 || labNotes === '') {
-            toast("Please fill in all fields")
+        if (testRequests.length === 0) {
+            toast("Please add at least one request");
             return
+        }
+        if (diagnosis === '' || additionalNote === '') {
+            toast("Please fill in all fields");
+            return;
         }
         setLoading(true);
         const payload = {
-            labCenter: labCenter,
-            diagnosis: diagnosis,
-            labType: labType,
-            labRequests: labRequests.filter(request => request.trim() !== ''), // Filter out empty lab requests
-            labNote: labNotes,
-        }
+            age: visit?.age.split(" ")[0],
+            diagnosis,
+            testRequests,
+            additionalNote,
+        };
+
+        console.log(payload)
         try {
             await post(`/patients/${id}/visit/${visit?.id}/lab-request`, payload);
             toast.success('Lab request added successfully');
@@ -55,33 +63,34 @@ function ReferPatient({ closeModal, visit, id }) {
     return (
         <div className='overlay'>
             <RiCloseFill className='close-btn pointer' onClick={closeModal} />
-            <div className="modal-box max-w-600">
+            <div className="modal-box max-w-800">
                 <div className="p-40">
                     <h3 className="bold-text">Refer Patient</h3>
-                    <InputField label="Lab Center" name="labCenter" onChange={(e) => setLabCenter(e.target.value)} />
-                    <InputField label="Lab Type" name="labType" onChange={(e) => setLabType(e.target.value)} />
-                    <div className="m-t-20">
-                        <InputField
-                            label="Add Lab Request"
-                            value={currentLabRequest}
-                            onChange={(e) => setCurrentLabRequest(e.target.value)}
-                        />
-                        <button className="btn m-t-10" onClick={addLabRequest}>Add Lab Request</button>
+                    <div className="m-t-20  ">
+                        <div className='flex gap-8'>
+                            <InputField label="Lab Request" name="labTest" value={labTest} onChange={(e) => setLabTest(e.target.value)} />
+                            <InputField label="Lab Centre" name="labCentre" value={labCentre} onChange={(e) => setLabCentre(e.target.value)} />
+                        </div>
+
+                        <div className='flex flex-h-end'><button className="btn m-t-10" onClick={addLabRequest}>+ Add</button></div>
+
                     </div>
-                    {labRequests.length > 0 && (
+                    {testRequests.length > 0 && (
                         <table className="bordered-table-2 m-t-20">
                             <thead>
                                 <tr>
                                     <th className='w-20'>s/n</th>
-                                    <th className='w-60'>Lab Request</th>
+                                    <th className='w-40'>Lab Request</th>
+                                    <th className='w-40'>Lab Centre</th>
                                     <th className='w-20'>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {labRequests.map((request, index) => (
+                                {testRequests.map((request, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>{request}</td>
+                                        <td>{request.labTest}</td>
+                                        <td>{request.labCentre}</td>
                                         <td>
                                             <BsTrash className="text-red pointer" height={20} width={20} onClick={() => removeLabRequest(index)} />
                                         </td>
@@ -90,8 +99,8 @@ function ReferPatient({ closeModal, visit, id }) {
                             </tbody>
                         </table>
                     )}
-                    <TextArea label="Lab Notes" name="labNotes" onChange={(e) => setLabNotes(e.target.value)} />
-                    <TextArea label="Diagnosis" name="diagnosis" onChange={(e) => setDiagnosis(e.target.value)} />
+                    <TextArea label="Diagnosis" name="diagnosis" value={diagnosis} onChange={(e) => setDiagnosis(e.target.value)} />
+                    <TextArea label="Additional Note" name="additionalNote" value={additionalNote} onChange={(e) => setAdditionalNote(e.target.value)} />
                     <button className="btn m-t-20 w-100" onClick={referPatient} disabled={loading}>Refer Patient</button>
                 </div>
             </div>

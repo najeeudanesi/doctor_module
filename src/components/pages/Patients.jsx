@@ -162,8 +162,8 @@ function Patients() {
     if (filteredDate) {
       const filteredResults = patientData.filter((patient) => {
         // Parse the date string into a Date object
-        const patientDateRaw = patient?.visits.pop()?.dateOfVisit
-        console.log(patientDateRaw)
+        const patientDateRaw = patient?.visits[patient?.visits?.length - 1]?.dateOfVisit
+
         const patientDate = new Date(patientDateRaw)
 
         // Extract the date components
@@ -183,6 +183,7 @@ function Patients() {
           patientDay === selectedDay
         );
       });
+
       setFilteredData(filteredResults);
     } else {
       setFilteredData(patientData);

@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
+import { logout } from "../utility/auth";
 const parseJwt = (token) => {
     try {
         return JSON.parse(atob(token.split('.')[1]));
@@ -17,6 +18,7 @@ const AuthRoute = ({ children }) => {
         return <Navigate to="/" replace />;
     }
     if (decodedJwt?.exp * 1000 < Date.now()) {
+        logout();
         return <Navigate to="/" replace />;
     }
     return children;

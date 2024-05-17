@@ -7,6 +7,7 @@ function ImmunizationTable({ patientId }) {
     const [modalOpen, setModalOpen] = useState(false);
     const [attachments, setAttachments] = useState([]);
     const [data, setData] = useState([]);
+    const [isloading, setIsLoading] = useState(false)
 
     const downloadFile = async (docName) => {
         try {
@@ -58,12 +59,16 @@ function ImmunizationTable({ patientId }) {
     };
 
     const fetchData = async () => {
+        setIsLoading(true)
         try {
-            const response = await get(`/patients/${patientId}/immunizationrecord/`);
+            const response = await get(`/patients/GetAllImmunizationRecordByPatientId/`, { patientId: patientId });
+            console.log(response)
             setData(response);
         } catch (e) {
             console.log(e);
         }
+
+        setIsLoading(false)
     };
 
     const toggleModal = () => {
@@ -81,48 +86,51 @@ function ImmunizationTable({ patientId }) {
 
     return (
         <div className="w-100 ">
-            <div className="w-100 none-flex-item m-t-40">
-                <table className="bordered-table-2">
-                    <thead className="border-top-none">
-                        <tr className="border-top-none">
-                            <th className="w-10">Date</th>
-                            <th>Vaccine</th>
-                            <th>Quantity</th>
-                            <th>Age</th>
-                            <th>Weight</th>
-                            <th>Temp</th>
-                            <th>Brand</th>
-                            <th>Admin nurse</th>
-                            <th>Vaccine Batch ID</th>
-                            <th className=" w-20">Attachment</th>
-                        </tr>
-                    </thead>
-                    <tbody className="white-bg view-det-pane">
-                        {data.map((row) => (
-                            <tr key={row.id}>
-                                <td>{formatDate(row?.dateGiven)}</td>
-                                <td>{row?.vaccine}</td>
-                                <td>{row?.quantity}</td>
-                                <td>{row?.age}</td>
-                                <td>{row?.weight}</td>
-                                <td>{row?.temperature}</td>
-                                <td>{row?.vaccineBrand}</td>
-                                <td>{row?.nurseName}</td>
-                                <td>{row?.batchId}</td>
-                                <td className="font-xs">
-                                    {row?.documents && (
-                                        <div>
-                                            {row?.documents.map((doc, index) => (
-                                                <p key={index} onClick={() => downloadFile(doc?.docName)} className="pointer font-link">Download Attachment</p>
-                                            ))}
-                                        </div>
-                                    )}
-                                </td>
+            {
+                !isloading ? (<div className="w-100 none-flex-item m-t-40">
+                    <table className="bordered-table-2">
+                        <thead className="border-top-none">
+                            <tr className="border-top-none">
+                                <th className="w-10">Date</th>
+                                <th>Vaccine</th>
+                                <th>Quantity</th>
+                                <th>Age</th>
+                                <th>Weight</th>
+                                <th>Temp</th>
+                                <th>Brand</th>
+                                <th>Admin nurse</th>
+                                <th>Vaccine Batch ID</th>
+                                <th className=" w-20">Attachment</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody className="white-bg view-det-pane">
+                            {data.map((row) => (
+                                <tr key={row.id}>
+                                    <td>{formatDate(row?.dateGiven)}</td>
+                                    <td>{row?.vaccine}</td>
+                                    <td>{row?.quantity}</td>
+                                    <td>{row?.age}</td>
+                                    <td>{row?.weight}</td>
+                                    <td>{row?.temperature}</td>
+                                    <td>{row?.vaccineBrand}</td>
+                                    <td>{row?.nurseName}</td>
+                                    <td>{row?.batchId}</td>
+                                    <td className="font-xs">
+                                        {row?.immunizationDocuments && (
+                                            <div>
+                                                {row?.immunizationDocuments.map((doc, index) => (
+                                                    <p key={index} onClick={() => downloadFile(doc?.docName)} className="pointer font-link">Download Attachment</p>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>) : (<div>Loading....</div>)
+            }
+
             {modalOpen && <ImmunizationAttachment closeModal={toggleModal} data={attachments} />}
         </div>
     );

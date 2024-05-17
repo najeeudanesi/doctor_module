@@ -1649,7 +1649,7 @@ textarea {
 
 .outline {
   border: 1px solid;
-  height: 100%;
+
   width: 40px;
   padding: 10px;
   border-radius: 6px;
@@ -1659,4 +1659,8 @@ textarea {
 
 .text-sm {
   font-size: 13px;
+}
+
+.text-start {
+  text-align: start;
 }

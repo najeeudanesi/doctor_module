@@ -1,7 +1,9 @@
 import React from 'react';
-import { RiCloseFill } from 'react-icons/ri';
+import { RiCloseFill, RiDownloadCloud2Fill, RiFileDownloadFill } from 'react-icons/ri';
+import InputField from '../UI/InputField';
+import toast from 'react-hot-toast';
 
-function LabsAttachment({ closeModal, data, subject, patient }) {
+function LabsAttachment({ closeModal, data, subject, patient, fullData }) {
     const downloadFile = async (docName) => {
         try {
             // Get the token from local storage
@@ -44,6 +46,7 @@ function LabsAttachment({ closeModal, data, subject, patient }) {
                 // Clean up by revoking the blob URL
                 URL.revokeObjectURL(blobUrl);
             } else {
+                toast.error('Failed to Download/ Invalid Document')
                 console.error('Failed to fetch download link:', response.statusText);
             }
         } catch (e) {
@@ -57,16 +60,17 @@ function LabsAttachment({ closeModal, data, subject, patient }) {
             <div className="modal-box max-w-800">
                 <div className="p-40">
                     <div className='flex space-between bold-text'>{patient + " "}lab report</div>
-                    <div className='flex flex-v-center m-t-10'><div className='comment-btn'>Subject</div> <div className='outline-box w-100'>{subject}</div> </div>
+                    <InputField value={subject} label="Subject" />
+                    <div className='flex flex-v-center m-t-10 '><div className='comment-btn w-100 p-10 bold-text'>Lab Findings</div>  </div>
+                    <div className='outline-box p-10'>{fullData?.labFindings}</div>
                     {
                         data.map((item, i) => (
-                            <div key={i}>
-                                <div>{new Date(item?.createdOn).toLocaleDateString()}</div>
-                                <div className='flex flex-v-center m-t-10 '><div className='comment-btn w-100'>Lab Findings</div>  </div>
-                                <div className='outline-box'>{item?.labFindings}</div>
-
+                            <div key={i} className='m-t-30'>
+                                <div className='bold-text'>{new Date(item?.createdOn).toLocaleDateString()}</div>
                                 {/* Button to download attachment */}
-                                <button className="btn m-t-10" onClick={() => downloadFile(item?.docName)}>Download Attachment</button>
+                                <div className='text-green pointer'>
+                                    <RiFileDownloadFill onClick={() => downloadFile(item?.docName)} size={200} />
+                                </div>
                             </div>
                         ))
                     }

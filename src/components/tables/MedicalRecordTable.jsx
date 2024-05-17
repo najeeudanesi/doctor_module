@@ -13,7 +13,7 @@ function MedicalRecordTable({ data }) {
                             <th>Date</th>
                             <th>Name</th>
                             <th>Details</th>
-                            <th>Prescribed Meds</th>
+
 
                         </tr>
                     </thead>
@@ -22,10 +22,10 @@ function MedicalRecordTable({ data }) {
                         {data.map((row, index) => (
                             <tr key={index}
                             >
-                                <td>{formatDate(row.createdAt)}</td>
+                                <td> {row?.createdAt && formatDate(row.createdAt)}</td>
                                 <td>{row.name}</td>
                                 <td>{row.comment}</td>
-                                <td>{row.actionTaken}</td>
+
 
 
                             </tr>

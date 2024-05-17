@@ -11,6 +11,7 @@ function Treatments({ visit, id }) {
   const [treatmentModal, setTreatmentModal] = useState(false);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [lastVisit, setLastVisit] = useState(null)
 
   const toggleModal = () => {
     console.log(visit)
@@ -37,24 +38,39 @@ function Treatments({ visit, id }) {
       const response = await get(`/patients/${id}/treatmentrecord`)
       console.log(response)
       setData(response)
+
     } catch (e) {
       console.log(e)
     }
     setIsLoading(false)
   }
 
+
+  const fetchVisit = async () => {
+    setIsLoading(true)
+    try {
+      const response = await get(`/patients/${id}/visitrecord`);
+      setLastVisit(response[response.length - 1]);
+
+    } catch (e) {
+      console.log(e);
+    }
+    setIsLoading(false)
+  };
+
   useEffect(() => {
     fetchData()
+    fetchVisit()
   }, [])
   return (
     <div className="w-100">
       <div className="flex flex-h-end w-75 gap-10"><button className="rounded-btn" onClick={toggleModal}>+ Refer Patient</button><button className="rounded-btn" onClick={toggleTreatmentModal}>+ Add Treatment</button></div>
-      <TreatmentTable patientId={id} data={data} isloading={isLoading} />
+      <TreatmentTable patientId={id} data={data} isloading={isLoading} visit={visit} />
       {
-        showModal && <ReferPatient closeModal={toggleModal} visit={visit} id={id} />
+        showModal && <ReferPatient closeModal={toggleModal} visit={lastVisit} id={id} />
       }
       {
-        treatmentModal && <AddTreatment closeModal={toggleTreatmentModal} visit={visit} id={id} fetchData={() => fetchData()} />
+        treatmentModal && <AddTreatment closeModal={toggleTreatmentModal} visit={lastVisit} id={id} fetchData={() => fetchData()} />
       }
 
     </div>

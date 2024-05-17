@@ -30,6 +30,7 @@ const Home = (props) => {
 
       if (data?.role === "Doctor") {
         sessionStorage.setItem('token', "Bearer " + data.jwt.token);
+        sessionStorage.setItem('token-expiry-date', data.jwt.expirationDate)
         localStorage.setItem('name', data.firstName + " " + data.lastName);
         localStorage.setItem('role', data.role);
         localStorage.setItem('USER_INFO', JSON.stringify(data));

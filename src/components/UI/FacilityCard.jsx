@@ -30,7 +30,7 @@ function FacilityCard({ data }) {
     fetchData();
   }, [])
   return (
-    <div>
+    <div className="pointer">
       {data?.status === "Occupied" ? (
         <div className="w-50" onClick={toggleModal}>
           <div className="card">
@@ -59,7 +59,7 @@ function FacilityCard({ data }) {
 
       {
         modal && (
-          <NurseNotes visitId={lastVisit?.id} patientId={data?.patientId} closeModal={toggleModal} isFcilityView={true} />
+          <NurseNotes data={lastVisit} patientId={data?.patientId} closeModal={toggleModal} isFacilityView={true} />
         )
       }
     </div>

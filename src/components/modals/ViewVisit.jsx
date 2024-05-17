@@ -47,7 +47,7 @@ function ViewVisit({ closeModal, visit, next }) {
                     </table>
 
                     <TextArea label="Assigned Nurse" name="assignedNurse" value={visit.nurseName} disabled={true} />
-                    <TextArea label="Assigned Doctor" name="assignedDoctor" value={visit.DoctorName} disabled={true} />
+                    <TextArea label="Assigned Doctor" name="assignedDoctor" value={visit.doctorName} disabled={true} />
                     <button className="btn m-t-20 w-100" onClick={() => next()}>Proceed to Treatment and Diagnosis</button>
                 </div>
             </div>

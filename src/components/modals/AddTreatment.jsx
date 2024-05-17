@@ -14,6 +14,7 @@ function AddTreatment({ closeModal, visit, id, fetchData }) {
     const [loading, setLoading] = useState(false);
     const [treatmentCategories, setTreatmentCategories] = useState([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState(1); // State to hold the selected category ID
+    const [admissionStatus, setAdmissionStatus] = useState('Not To Be Admitted');
 
     const fetchTreatmentCategory = async () => {
         try {
@@ -46,9 +47,10 @@ function AddTreatment({ closeModal, visit, id, fetchData }) {
         const payload = {
             dateOfVisit: visit?.dateOfVisit,
             diagnosis: diagnosis,
-            medication: medications, // Send the medications array
+            medication: medications,
             carePlan: carePlan,
-            treatmentCategoryId: selectedCategoryId // Use the selected category ID
+            treatmentCategoryId: selectedCategoryId,
+            admissionStatus: admissionStatus
         }
         console.log(payload)
 
@@ -82,6 +84,17 @@ function AddTreatment({ closeModal, visit, id, fetchData }) {
                             ))}
                         </select>
                     </div>
+
+
+                    <div className="w-80 m-t-20 flex">
+                        <label htmlFor="category" className='label'>Admission Status</label>
+                        <select id="category" className="input-field" value={admissionStatus} onChange={(e) => setAdmissionStatus(e.target.value)}>
+                            <option value={"To Be Admitted"}>To Be Admitted</option>
+                            <option value={"Not To Be Admitted"}>Not To Be Admitted</option>
+                        </select>
+                    </div>
+
+
                     <div className="m-t-20">
                         <InputField
                             label="Medication"
@@ -112,6 +125,10 @@ function AddTreatment({ closeModal, visit, id, fetchData }) {
                     )}
                     <TextArea label="Patient Diagnosis" name="diagnosis" onChange={(e) => setDiagnosis(e.target.value)} />
                     <TextArea label="Add Care Plan" name="carePlan" onChange={(e) => setCarePlan(e.target.value)} />
+
+
+
+
                     <button className="btn m-t-20 w-100" onClick={addTreatment} disabled={loading}>Add Treatment</button>
                 </div>
             </div>
