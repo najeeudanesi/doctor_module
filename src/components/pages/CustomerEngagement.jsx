@@ -10,6 +10,7 @@ import {
 } from "recharts";
 import { get } from "../../utility/fetch";
 import { RiCircleFill } from "react-icons/ri";
+import { formatDate } from "../../utility/general";
 const PER_PAGE = 4; // Number of items per page
 
 const months = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
@@ -66,7 +67,7 @@ function CustomerEngagement() {
       }));
 
     setAvg(logData);
-    console.log("avg", logData);
+
     const total = logData.reduce((acc, entry) => acc + entry.value, 0);
     setTotalValue(total);
   };
@@ -75,7 +76,7 @@ function CustomerEngagement() {
 
     fetchData();
     fetchAvg();
-    console.log(totalValue)
+
   }, [month, currentPage, typeNum]);
 
   const handlePageChange = (newPage) => {
@@ -183,7 +184,7 @@ function CustomerEngagement() {
               {customerEngagements.map((engagement) => (
                 <div key={engagement.id}>
                   <span className="created-at">
-                    {new Date(engagement.createdAt).toLocaleDateString()}
+                    {formatDate(engagement.createdAt)}
                   </span>
                   <div className="engagement-details m-t-20">
                     <span className="comment-text">{engagement.comments}</span>

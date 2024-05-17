@@ -16,7 +16,7 @@ function VisitTable({ patientId, next }) {
         try {
             const response = await get(`/patients/${patientId}/visitrecord`);
             setData(response);
-            console.log(response)
+
         } catch (e) {
             console.log(e);
         }

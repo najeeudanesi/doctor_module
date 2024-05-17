@@ -23,7 +23,7 @@ function Facility() {
   const fetchData = async () => {
     try {
       const response = await get(`/facilities/beds/assignedtodoctor`)
-      console.log(response)
+
       setNewData(response)
       calculateOccupied(response);
       calculateAvailable(response);

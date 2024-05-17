@@ -12,7 +12,7 @@ function FacilityCard({ data }) {
   const fetchData = async () => {
     try {
       const response = await get(`/patients/${data?.patientId}/visitrecord`);
-      console.log(response)
+
       setVisits(response);
       setLastVisit(response[response.length - 1] || null);
     }

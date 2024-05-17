@@ -20,8 +20,7 @@ function MedicalRecord({ data, next, fetchData }) {
     try {
       const res = await get("/Patients/getAllMedicalTypes");
       setMedicalTypes(res);
-      console.log("medical types", res)
-      console.log(data);
+
     } catch (error) {
       console.log(error);
     }

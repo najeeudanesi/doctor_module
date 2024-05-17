@@ -10,7 +10,7 @@ function Labs({ id }) {
     setIsLoading(true);
     try {
       const response = await get(`/patients/${id}/lab_reports`);
-      console.log(response);
+
       setData(response);
 
     }

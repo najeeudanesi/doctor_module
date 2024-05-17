@@ -2,7 +2,7 @@ import React from "react";
 import { formatDate } from "../../utility/general";
 
 function MedicalRecordTable({ data }) {
-    console.log(data)
+
 
     return (
         <div className="w-100 ">

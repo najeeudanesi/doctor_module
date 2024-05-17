@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ImmunizationAttachment from "../modals/ImmunizationAttachments";
 import { formatDate } from "../../utility/general";
 import { get } from "../../utility/fetch";
+import toast from "react-hot-toast";
 
 function ImmunizationTable({ patientId }) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -51,6 +52,7 @@ function ImmunizationTable({ patientId }) {
                 // Clean up by revoking the blob URL
                 URL.revokeObjectURL(blobUrl);
             } else {
+                toast.error('Failed to Download/ Invalid Document')
                 console.error('Failed to fetch download link:', response.statusText);
             }
         } catch (e) {
@@ -62,7 +64,7 @@ function ImmunizationTable({ patientId }) {
         setIsLoading(true)
         try {
             const response = await get(`/patients/GetAllImmunizationRecordByPatientId/`, { patientId: patientId });
-            console.log(response)
+
             setData(response);
         } catch (e) {
             console.log(e);

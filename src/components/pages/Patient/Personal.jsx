@@ -15,7 +15,7 @@ function Personal({ data }) {
     try {
       const response = await get(`/patients/allpatientbyid/`, { patientId: data.id });
       setExtraDetails(response);
-      console.log(response);
+
     }
     catch (e) {
       console.log(e);

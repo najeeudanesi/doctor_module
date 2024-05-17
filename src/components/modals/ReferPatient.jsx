@@ -14,7 +14,7 @@ function ReferPatient({ closeModal, visit, id }) {
     const [labCentre, setLabCentre] = useState('');
     const [labTest, setLabTest] = useState('');
 
-    console.log(visit)
+
     const addLabRequest = () => {
         if (labCentre.trim() !== '' && labTest.trim() !== '') {
             setTestRequests([...testRequests, { labTest, labCentre }]);

@@ -14,17 +14,17 @@ function Treatments({ visit, id }) {
   const [lastVisit, setLastVisit] = useState(null)
 
   const toggleModal = () => {
-    console.log(visit)
+
     if (visit === null) {
       toast("A visit has to exist before you can add treatment")
       return
     }
     setShowModal(!showModal);
-    console.log(visit)
+
   }
 
   const toggleTreatmentModal = () => {
-    console.log(visit)
+
     if (visit === null) {
       toast("A visit has to exist before you can add treatment")
       return
@@ -36,7 +36,7 @@ function Treatments({ visit, id }) {
     setIsLoading(true)
     try {
       const response = await get(`/patients/${id}/treatmentrecord`)
-      console.log(response)
+
       setData(response)
 
     } catch (e) {

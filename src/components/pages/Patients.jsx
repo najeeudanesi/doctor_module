@@ -28,7 +28,7 @@ function Patients() {
       const data = await get(`/patients/assignedtodoctor`);
       setPatientData(data.data);
       setFilteredData(data.data); // Initialize filtered data with all patient data
-      console.log(selectedDate);
+
 
       ;
     } catch (e) {

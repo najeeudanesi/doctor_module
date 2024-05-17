@@ -15,7 +15,7 @@ function NurseNotesTreatment({ data, patientId, closeModal }) {
     const fetchData = async () => {
         try {
             const response = await get(`/patients/${patientId}/visitrecord`);
-            console.log(response)
+
             setVisits(response);
             setLastVisit(response[response.length - 1] || null);
         }

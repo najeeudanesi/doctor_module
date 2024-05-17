@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../utility/general";
 
 function PatientsTable({ data }) {
-  console.log(data);
+
   const navigate = useNavigate();
 
   return (

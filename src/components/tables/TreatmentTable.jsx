@@ -34,7 +34,7 @@ function TreatmentTable({ data, isloading, patientId }) {
                                     <tbody className="white-bg view-det-pane">
                                         {data.map((row, index) => (
                                             <tr key={index}>
-                                                <td>{new Date(row?.dateOfVisit).toLocaleDateString()}</td>
+                                                <td>{formatDate(row?.dateOfVisit)}</td>
 
                                                 <td>{row?.age}</td>
                                                 <td>{row?.weight}kg</td>
