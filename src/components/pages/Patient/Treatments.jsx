@@ -37,7 +37,7 @@ function Treatments({ visit, id }) {
     try {
       const response = await get(`/patients/${id}/treatmentrecord`)
 
-      setData(response)
+      setData(response.data)
 
     } catch (e) {
       console.log(e)
@@ -64,7 +64,7 @@ function Treatments({ visit, id }) {
   }, [])
   return (
     <div className="w-100">
-      <div className="flex flex-h-end w-75 gap-10"><button className="rounded-btn" onClick={toggleModal}>+ Refer Patient</button><button className="rounded-btn" onClick={toggleTreatmentModal}>+ Add Treatment</button></div>
+      <div className="flex flex-h-end w-100 gap-10"><button className="rounded-btn" onClick={toggleModal}>+ Refer Patient</button><button className="rounded-btn" onClick={toggleTreatmentModal}>+ Add Treatment</button></div>
       <TreatmentTable patientId={id} data={data} isloading={isLoading} visit={visit} />
       {
         showModal && <ReferPatient closeModal={toggleModal} visit={lastVisit} id={id} />

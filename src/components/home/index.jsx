@@ -28,11 +28,11 @@ const Home = (props) => {
     try {
       const data = await post(`/Auth/login/`, payload);
 
-      if (data?.role === "Doctor") {
+      if (data?.role.includes("Doctor")) {
         sessionStorage.setItem('token', "Bearer " + data.jwt.token);
         sessionStorage.setItem('token-expiry-date', data.jwt.expirationDate)
         localStorage.setItem('name', data.firstName + " " + data.lastName);
-        localStorage.setItem('role', data.role);
+        localStorage.setItem('role', data.role.replace(/[^\w\s]/gi, ''));
         localStorage.setItem('USER_INFO', JSON.stringify(data));
         navigate('/doctor/dashboard');
       } else {

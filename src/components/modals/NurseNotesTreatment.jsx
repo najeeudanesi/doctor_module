@@ -36,10 +36,10 @@ function NurseNotesTreatment({ data, patientId, closeModal }) {
                     <table className="bordered-table text-sm">
                         <thead className="border-top-none">
                             <tr className="border-top-none">
-                                <th className="">Date</th>
+                                <th className="w-20">Date</th>
                                 <th>Age</th>
-                                <th>weight</th>
-                                <th>temp</th>
+                                <th>Weight</th>
+                                <th>Temp</th>
                                 <th>Diagnosis</th>
                                 <th>Medication/Prescription</th>
 
@@ -52,10 +52,15 @@ function NurseNotesTreatment({ data, patientId, closeModal }) {
                             <td>{data?.age}</td>
                             <td>{data?.weight}</td>
                             <td>{data?.temperature}</td>
-                            <td>{data?.diagnosis}</td>
-                            <td><ol>{data?.medications.map((medication, index) => (
-                                <li className="text-start m-t-10" key={index}>{medication.name}</li>
-                            ))}</ol></td>
+                            <td className>{data?.diagnosis}</td>
+                            <td><div>{data?.medications.map((medication, index) => (
+                                <div className="text-start m-t-10" key={index}>{index + 1 + ". "}{medication.name}</div>
+                            ))}</div>
+                                <div className="text-start flex gap-4 m-t-10">
+
+                                    <u className="bold-text">Care Plan: </u>
+                                    <p className="text-gray"> {data?.carePlan}</p></div>
+                            </td>
 
                         </tbody>
                     </table>

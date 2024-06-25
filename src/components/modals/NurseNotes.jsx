@@ -25,8 +25,8 @@ function NurseNotes({ data, patientId, closeModal, isFacilityView }) {
                                         <tr className="border-top-none">
                                             <th className="">Date</th>
                                             <th>Age</th>
-                                            <th>weight</th>
-                                            <th>temp</th>
+                                            <th>Weight</th>
+                                            <th>Temp</th>
                                             <th>Height</th>
                                             <th>Heart</th>
                                             <th>Respiratory</th>
@@ -70,7 +70,7 @@ function NurseNotes({ data, patientId, closeModal, isFacilityView }) {
                         ) : (<>Loading ...</>)
                     }
                 </div>
-                {isFacilityView && <div className="bold-text p-20 pointer" onClick={() => navigate(`/doctor/patient-details/${patientId}`)}><u>View patient's file </u></div>}
+                {isFacilityView && <div className="bold-text p-20 pointer" onClick={() => navigate(`/doctor/patients/patient-details/${patientId}`)}><u>View patient's file </u></div>}
 
             </div>
         </div>

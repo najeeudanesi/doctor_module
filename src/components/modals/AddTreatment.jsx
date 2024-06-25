@@ -101,7 +101,9 @@ function AddTreatment({ closeModal, visit, id, fetchData }) {
                             value={medication}
                             onChange={(e) => setMedication(e.target.value)}
                         />
-                        <button className="btn m-t-10" onClick={addMedication}>Add Medication</button>
+                        <div className='flex flex-h-end'>
+                            <button className="btn m-t-10" onClick={addMedication}>+Add</button>
+                        </div>
                     </div>
                     {medications.length > 0 && (
                         <table className="bordered-table-2 m-t-20">

@@ -5,8 +5,7 @@ import { RiLogoutCircleLine } from "react-icons/ri";
 import EdsgLogo from "../../assets/images/SidebarLogo.png";
 import { AiOutlineHome } from "react-icons/ai";
 import { logout } from "../../utility/auth";
-import aiLogo from "../../assets/images/Greezone-ai.png"; // import aiLogo 
-// import { logout } from "../../utility/auth";
+import aiLogo from "../../assets/images/Greezone-ai.png"; // import aiLogo
 
 const Sidebar = ({ history, menuList }) => {
   const location = useLocation(); // Use useLocation hook to access the location
@@ -21,7 +20,6 @@ const Sidebar = ({ history, menuList }) => {
 
       <div className="sidebar-menu">
         <ul className="menu-items">
-
           {menuList &&
             menuList.map((item) => (
               <MenuItem props={item} pathname={pathname} key={item.title} />
@@ -36,7 +34,6 @@ const Sidebar = ({ history, menuList }) => {
             <img src={aiLogo} alt="logo" className="brand m-l-20" width="150"></img>
           </div>
         </ul>
-
       </div>
     </nav>
   );
@@ -45,9 +42,11 @@ const Sidebar = ({ history, menuList }) => {
 const MenuItem = ({ props: { title, href, icon, children }, pathname }) => {
   const [isShowingSub, setIsShowingSub] = useState(false);
 
+  const isActive = pathname === href || pathname.startsWith(href);
+
   return (
     <>
-      <li className={`${pathname === href ? "active" : ""}`}>
+      <li className={`${isActive ? "active" : ""}`}>
         {icon}
         {children ? (
           <>
@@ -71,15 +70,14 @@ const MenuItem = ({ props: { title, href, icon, children }, pathname }) => {
       </li>
       {children && isShowingSub && (
         <ul className={`${isShowingSub ? "show" : ""} sub-menu`}>
-          {children &&
-            children.map((sub) => (
-              <li
-                className={`${pathname === sub.href ? "active" : ""}`}
-                key={sub.title}
-              >
+          {children.map((sub) => {
+            const isSubActive = pathname === sub.href || pathname.startsWith(sub.href);
+            return (
+              <li className={`${isSubActive ? "active" : ""}`} key={sub.title}>
                 <Link to={sub.href}>{sub.title}</Link>
               </li>
-            ))}
+            );
+          })}
         </ul>
       )}
     </>

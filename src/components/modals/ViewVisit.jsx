@@ -16,8 +16,9 @@ function ViewVisit({ closeModal, visit, next }) {
                         <thead className="border-top-none">
                             <tr className="border-top-none">
                                 <th className="w-20">Date</th>
-                                <th>weight</th>
-                                <th>temp</th>
+                                <th>Weight</th>
+                                <th>Age</th>
+                                <th>Temp</th>
                                 <th>Height</th>
                                 <th>Heart</th>
                                 <th>Respiratory</th>
@@ -32,6 +33,7 @@ function ViewVisit({ closeModal, visit, next }) {
                                 <td>{formatDate(visit.dateOfVisit)}</td>
 
                                 <td>{visit.weight}</td>
+                                <td>{visit.age}</td>
                                 <td>{visit.temperature}</td>
                                 <td>{visit.height}</td>
                                 <td>{visit.heartPulse}</td>

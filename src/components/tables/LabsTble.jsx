@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LabsAttachment from "../modals/LabsAttachment";
 import { RiFilePaper2Line } from "react-icons/ri";
+import { formatDate } from "../../utility/general";
 
 function LabsTable({ data, id }) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -31,7 +32,7 @@ function LabsTable({ data, id }) {
 
                             <th>Age</th>
                             <th>Diagnosis</th>
-                            <th className="w-25">Lab Request</th>
+                            <th className="w-25">Lab Requests</th>
                             <th>Date Created</th>
                             <th className="w-25">Attatchment</th>
 
@@ -46,7 +47,7 @@ function LabsTable({ data, id }) {
                                 <td ><ol>{row?.patientTestRequests.map((request, index) => (
                                     <li className="text-start m-t-10" key={index}>{request.labTest}</li>
                                 ))}</ol></td>
-                                <td >{new Date(row?.createdOn).toLocaleDateString()}</td>
+                                <td >{formatDate(row?.createdOn)}</td>
                                 <td ><div className="rounded-btn-yellow w-75 flex flex-v-center gap-2 flex-h-center" onClick={(() => stageAttachments(row))}><RiFilePaper2Line /> Lab Notes</div></td>
                             </tr>
                         ))}

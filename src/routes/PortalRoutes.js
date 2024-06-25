@@ -15,7 +15,7 @@ export default () => (
         <Route path="/patients" element={<AuthRoute><Patients /></AuthRoute>} />
         <Route path="/facility" element={<AuthRoute><Facility /></AuthRoute>} />
         <Route path="/customer-engagement" element={<AuthRoute><CustomerEngagement /></AuthRoute>} />
-        <Route path="/patient-details/:patientId" element={<AuthRoute><PatientDetails /></AuthRoute>} />
+        <Route path="/patients/patient-details/:patientId" element={<AuthRoute><PatientDetails /></AuthRoute>} />
         {/* Render the NotFound component for unmatched routes */}
         <Route path="*" element={<NotFound />} />
     </Routes>

@@ -65,7 +65,7 @@ function ImmunizationTable({ patientId }) {
         try {
             const response = await get(`/patients/GetAllImmunizationRecordByPatientId/`, { patientId: patientId });
 
-            setData(response);
+            setData(response.data);
         } catch (e) {
             console.log(e);
         }

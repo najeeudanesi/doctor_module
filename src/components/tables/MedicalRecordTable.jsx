@@ -10,7 +10,7 @@ function MedicalRecordTable({ data }) {
                 <table className="bordered-table-2">
                     <thead className="border-top-none">
                         <tr className="border-top-none">
-                            <th>Date</th>
+                            <th className="w-20">Date</th>
                             <th>Name</th>
                             <th>Details</th>
 

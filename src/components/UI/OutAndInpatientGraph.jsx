@@ -16,52 +16,6 @@ import {
 
 const COLORS = ["#3BFF43", "#109615"];
 
-const inputData = {
-  "inPatientPercentage": 50,
-  "outPatientPercentage": 50,
-  "dailyAverageCount": [
-    {
-      "date": "Mar 21",
-      "inPatientCount": 1,
-      "outPatientCount": 0
-    },
-    {
-      "date": "Mar 25",
-      "inPatientCount": 1,
-      "outPatientCount": 0
-    },
-    {
-      "date": "Mar 25",
-      "inPatientCount": 1,
-      "outPatientCount": 0
-    },
-    {
-      "date": "Mar 25",
-      "inPatientCount": 1,
-      "outPatientCount": 0
-    },
-    {
-      "date": "Mar 26",
-      "inPatientCount": 1,
-      "outPatientCount": 0
-    },
-    {
-      "date": "Mar 26",
-      "inPatientCount": 1,
-      "outPatientCount": 8
-    },
-    {
-      "date": "Mar 26",
-      "inPatientCount": 1,
-      "outPatientCount": 4
-    },
-    {
-      "date": "Mar 26",
-      "inPatientCount": 1,
-      "outPatientCount": 1
-    }
-  ]
-};
 
 
 
@@ -103,7 +57,7 @@ function OutAndInpatientGraph({ propdata }) {
     <div className="w-100 container">
       <div className="w-100 flex flex-v-center space-between border-bottom p-b-20">
         <div className="bold-text">Outpatient vs Inpatient seen</div>{" "}
-        <div>Month</div>
+
       </div>
       <div className="w-100 flex  ">
         <BarChart

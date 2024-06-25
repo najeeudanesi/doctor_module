@@ -19,9 +19,9 @@ function TreatmentTable({ data, isloading, patientId }) {
                                 <table className="bordered-table-2">
                                     <thead className="border-top-none">
                                         <tr className="border-top-none">
-                                            <th>Date</th>
+                                            <th className="w-20">Date</th>
                                             <th>Age</th>
-                                            <th>weight</th>
+                                            <th>Weight</th>
                                             <th>Temp</th>
 
                                             <th>Nurse Note</th>
@@ -45,12 +45,12 @@ function TreatmentTable({ data, isloading, patientId }) {
                                                         <RiFilePaper2Line />
                                                     </div>
                                                 </td>
-                                                <td>{row?.diagnosis}</td>
-                                                <td><ol>{row?.medications.map((medication, index) => (
-                                                    <li className="text-start m-t-10 bold-text" key={index}>{medication.name}</li>
-                                                ))}</ol>
+                                                <td className="w-25">{row?.diagnosis}</td>
+                                                <td className="w-25 p-20"><div>{row?.medications.map((medication, index) => (
+                                                    <div className="text-start m-t-10 bold-text" key={index}>{index + 1 + ". "}{medication.name}</div>
+                                                ))}</div>
 
-                                                    <div className="text-start p-10 flex gap-4">
+                                                    <div className="text-start flex gap-4 m-t-10">
 
                                                         <u className="bold-text">Care Plan: </u>
                                                         <p className="text-gray"> {row?.carePlan}</p></div>

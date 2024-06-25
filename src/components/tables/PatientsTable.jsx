@@ -31,7 +31,7 @@ function PatientsTable({ data }) {
               const lastVisit = row.visits && row.visits.length > 0 ? row.visits[row.visits.length - 1] : null;
 
               return (
-                <tr key={index} className="pointer" onClick={() => navigate(`/doctor/patient-details/${row.id}`)}>
+                <tr key={index} className="pointer" onClick={() => navigate(`/doctor/patients/patient-details/${row.id}`)}>
                   <td>{index + 1}</td>
                   <td>{row.firstName}</td>
                   <td>{row.lastName}</td>
