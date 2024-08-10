@@ -22,7 +22,7 @@ const Home = (props) => {
     }
     setLoading(true);
     const payload = {
-      usernameOrEmail: email,
+      email: email,
       password: password,
     };
     try {
@@ -32,7 +32,7 @@ const Home = (props) => {
         sessionStorage.setItem('token', "Bearer " + data.jwt.token);
         sessionStorage.setItem('token-expiry-date', data.jwt.expirationDate)
         localStorage.setItem('name', data.firstName + " " + data.lastName);
-        localStorage.setItem('role', data.role.replace(/[^\w\s]/gi, ''));
+        localStorage.setItem('role', data.role[0].replace(/[^\w\s]/gi, ''));
         localStorage.setItem('USER_INFO', JSON.stringify(data));
         navigate('/doctor/dashboard');
       } else {
@@ -64,8 +64,8 @@ const Home = (props) => {
 
             <form onSubmit={(e) => e.preventDefault()}>
               <div className=' m-t-40'>
-                <label>Username or Email</label>
-                <InputField type="text" name={"email"} value={email} placeholder={"username or email"} onChange={(e) => setEmail(e.target.value)} required={true} />
+                <label>Email</label>
+                <InputField type="text" name={"email"} value={email} placeholder={"Email"} onChange={(e) => setEmail(e.target.value)} required={true} />
               </div>
               <div className='m-t-40'>
                 <label>Password</label>

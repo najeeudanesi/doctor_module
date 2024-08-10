@@ -8,7 +8,25 @@ import InputField from '../UI/InputField';
 
 function NurseNotes({ data, patientId, closeModal, isFacilityView }) {
 
+    const [loading, setLoading] = useState(null);
+    const [nurseNotes, setnurseNotes] = useState([]);
     const navigate = useNavigate();
+
+    const fetchData = async () => {
+        try {
+
+            const res = await get(`/patients/${patientId}/nursenotes/${data?.id}`);
+            setnurseNotes(res.notes);
+
+        }
+        catch (e) {
+            console.log(e);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, [])
 
     return (
         <div className='overlay'>
@@ -56,10 +74,10 @@ function NurseNotes({ data, patientId, closeModal, isFacilityView }) {
                                 </div>
 
                                 {
-                                    data?.nurseNotes &&
+                                    nurseNotes &&
 
-                                    data.nurseNotes.map((data, index) => (
-                                        <div>
+                                    nurseNotes.map((data, index) => (
+                                        <div key={index}>
                                             <TextArea label="Notes" name="notes" value={data.note} disabled={true} />
                                         </div>
                                     )

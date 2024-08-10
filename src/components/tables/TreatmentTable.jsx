@@ -4,7 +4,7 @@ import NurseNotes from "../modals/NurseNotes";
 import { formatDate } from "../../utility/general";
 import NurseNotesTreatment from "../modals/NurseNotesTreatment";
 
-function TreatmentTable({ data, isloading, patientId }) {
+function TreatmentTable({ data, isloading, patientId, }) {
     const [noteModalData, setNoteModalData] = useState(null); // State to store the data for the note modal
 
 

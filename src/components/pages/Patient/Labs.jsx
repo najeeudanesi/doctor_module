@@ -7,15 +7,15 @@ function Labs({ id }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {
+    console.log("id:", id);
     setIsLoading(true);
     try {
-      const response = await get(`/patients/${id}/lab_reports`);
-
-      setData(response);
-
-    }
-    catch (e) {
-      console.log(e);
+      let res = await get(`/patients/${id}/lab_reports`);
+      console.log(res);
+      setData(res?.data);
+    } catch (error) {
+      console.error('Error fetching lab reports:', error);
+      // Handle the error here, such as displaying an error message to the user
     }
     setIsLoading(false);
   }

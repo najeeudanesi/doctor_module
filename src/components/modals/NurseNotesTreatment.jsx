@@ -10,6 +10,7 @@ function NurseNotesTreatment({ data, patientId, closeModal }) {
     const [visits, setVisits] = useState([]);
     const [lastVisit, setLastVisit] = useState(null);
     const [loading, setLoading] = useState(null);
+    const [nurseNotes, setnurseNotes] = useState([]);
 
 
     const fetchData = async () => {
@@ -18,6 +19,11 @@ function NurseNotesTreatment({ data, patientId, closeModal }) {
 
             setVisits(response);
             setLastVisit(response[response.length - 1] || null);
+
+
+            const res = await get(`/patients/${patientId}/nursenotes/${data?.visitId}`);
+            setnurseNotes(res.notes);
+
         }
         catch (e) {
             console.log(e);
@@ -77,10 +83,10 @@ function NurseNotesTreatment({ data, patientId, closeModal }) {
 
 
                     {
-                        lastVisit?.nurseNotes &&
+                        nurseNotes &&
 
-                        lastVisit.nurseNotes.map((data, index) => (
-                            <div>
+                        nurseNotes.map((data, index) => (
+                            <div key={index}>
                                 <TextArea label="Notes" name="notes" value={data.note} disabled={true} />
                             </div>
                         )

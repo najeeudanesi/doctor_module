@@ -8,61 +8,52 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  PieChart,
-  Pie,
-  Cell,
 } from "recharts";
 
-
 const COLORS = ["#3BFF43", "#109615"];
-
-
-
+const MONTH_NAMES = [
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"
+];
 
 function OutAndInpatientGraph({ propdata }) {
-  const { dist, data } = convertData(propdata);
+  const { data } = convertData(propdata);
+
   function convertData(inputData) {
-    const outPatientTotal = inputData.outPatientPercentage
-    const inPatientTotal = inputData.inPatientPercentage
-
-    const dist = [
-      { name: "OutPatients", value: outPatientTotal },
-      { name: "InPatients", value: inPatientTotal },
-    ];
-
-    if (!inputData) {
-      return { dist, data: [] };
+    if (!Array.isArray(inputData)) {
+      return { data: [] };
     }
-    const data = inputData.dailyAverageCount.reduce((acc, entry) => {
-      const dateIndex = acc.findIndex(item => item.name === entry.date);
-      if (dateIndex === -1) {
-        acc.push({
-          name: entry.date,
-          OutPatients: entry.outPatientCount,
-          InPatients: entry.inPatientCount
-        });
-      } else {
-        acc[dateIndex].OutPatients += entry.outPatientCount;
-        acc[dateIndex].InPatients += entry.inPatientCount;
-      }
-      return acc;
-    }, []);
 
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // getMonth() is zero-based
 
-    return { dist, data };
+    const data = [];
+
+    for (let month = 1; month <= currentMonth; month++) {
+      const existingData = inputData.find(
+        entry => entry.year === currentYear && entry.month === month
+      );
+
+      data.push({
+        name: `${MONTH_NAMES[month - 1]}`,
+        OutPatients: existingData ? existingData.outPatient : 0,
+        InPatients: existingData ? existingData.inPatient : 0,
+      });
+    }
+
+    return { data };
   }
 
-
   return (
-    <div className="w-100 container">
+    <div className="w-100 container graph">
       <div className="w-100 flex flex-v-center space-between border-bottom p-b-20">
-        <div className="bold-text">Outpatient vs Inpatient seen</div>{" "}
-
+        <div className="bold-text">Outpatient vs Inpatient</div>
       </div>
-      <div className="w-100 flex  ">
+      <div className="w-100 flex">
         <BarChart
           width={800}
-          height={200}
+          height={250}
           data={data}
           margin={{
             top: 5,
@@ -75,45 +66,20 @@ function OutAndInpatientGraph({ propdata }) {
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-
+          <Legend />
           <Bar
             barSize={10}
             dataKey="OutPatients"
             fill="#3BFF43"
-            activeBar={<Rectangle fill="pink" stroke="blue" />}
+            activeShape={<Rectangle fill="pink" stroke="blue" />}
           />
           <Bar
             barSize={10}
             dataKey="InPatients"
             fill="#109615"
-            activeBar={<Rectangle fill="gold" stroke="purple" />}
+            activeShape={<Rectangle fill="gold" stroke="purple" />}
           />
         </BarChart>
-
-        <PieChart width={250} height={200}>
-          <Legend
-            iconType="circle"
-            layout="horizontal"
-            verticalAlign="bottom"
-          />
-          <Pie
-            data={dist}
-            cx={120}
-            cy={100}
-            innerRadius={53}
-            outerRadius={60}
-            fill="#8884d8"
-            paddingAngle={0}
-            dataKey="value"
-          >
-            {dist.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-        </PieChart>
       </div>
     </div>
   );

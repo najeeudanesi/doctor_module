@@ -50,7 +50,7 @@ function AddTreatment({ closeModal, visit, id, fetchData }) {
             medication: medications,
             carePlan: carePlan,
             treatmentCategoryId: selectedCategoryId,
-            admissionStatus: admissionStatus
+            isAdmitted: admissionStatus === 'Admitted' ? true : false
         }
         console.log(payload)
 

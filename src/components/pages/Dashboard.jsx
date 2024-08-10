@@ -32,18 +32,20 @@ function Dashboard() {
   //done
   const getGraphDetails = async () => {
     try {
-      const data = await get(
-        `/dashboard/patientcaretypedata`
-      )
-      setGraph(data)
-
-
+      const response = await fetch("https://edogoverp.com/medicals/api/dashboard/AllOutPatientAndInPatientCount");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data)
+      setGraph(data);
     } catch (e) {
-      console.log("Error: ", e)
-
+      console.log("Error: ", e);
     }
+  };
 
-  }
+
+
   const getGender = async () => {
     try {
       const data = await get(
@@ -79,12 +81,13 @@ function Dashboard() {
         `/dashboard/AllOutPatientAndInPatientCount`
       )
 
-      setOutpatients(data.outpatientCount);
+      setOutpatients(data.outpatientCount || 0);
 
 
 
     } catch (e) {
       console.log("Error: ", e)
+      setOutpatients(0)
 
     }
 

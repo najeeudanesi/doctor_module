@@ -58,7 +58,7 @@ function Patients() {
         `/dashboard/AllOutPatientAndInPatientCount`
       )
 
-      setOutpatients(data.outpatientCount);
+      setOutpatients(data.outpatientCount || 0);
 
 
 

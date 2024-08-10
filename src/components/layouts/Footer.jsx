@@ -4,7 +4,7 @@ const Footer = () => (
   <footer>
     <div className="content space-between flex-v-center">
       <div className="footer-inner-left">
-        <p>2020 Edo State Government Digital Office</p>
+        <p>2024 Greenzone Technologies Limited</p>
       </div>
     </div>
   </footer>
